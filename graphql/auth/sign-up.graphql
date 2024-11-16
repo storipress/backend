@@ -1,0 +1,86 @@
+input SignUpInput @validator {
+  """
+  account email
+  """
+  email: EmailString!
+  # validation rules are handled by validator
+
+  """
+  account password
+  """
+  password: String!
+  @rules(apply: [
+    "required",
+    "string",
+    "min:8",
+  ])
+
+  """
+  user first name,
+  e.g. 大明
+  """
+  first_name: String
+  @rules(apply: [
+    "required_with:appsumo_code",
+    "nullable",
+    "string",
+  ])
+
+  """
+  user last name,
+  e.g. 王
+  """
+  last_name: String
+  @rules(apply: [
+    "required_with:appsumo_code",
+    "nullable",
+    "string",
+  ])
+
+  """
+  invite token
+  """
+  invite_token: String
+
+  """
+  publication name
+  """
+  publication_name: String
+  @rules(apply: [
+    "required_with:appsumo_code",
+    "nullable",
+    "string",
+  ])
+
+  """
+  publication timezone
+  """
+  timezone: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "timezone",
+  ])
+
+  appsumo_code: String
+  @rules(apply: [
+    "string",
+    "alpha_num",
+    "size:10",
+  ])
+
+  checkout_id: String
+  @rules(apply: [
+    "string",
+    "alpha_dash:ascii",
+  ])
+
+  campaign: JSON
+}
+
+extend type Mutation {
+  """
+  sign up to the app
+  """
+  signUp(input: SignUpInput! @spread): AuthToken! @rateLimiting(name: "user-sign-up")
+}

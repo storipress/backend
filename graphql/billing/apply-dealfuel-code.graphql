@@ -1,0 +1,13 @@
+input ApplyDealFuelCodeInput {
+  code: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+}
+
+extend type Mutation @guard {
+  applyDealFuelCode(
+    input: ApplyDealFuelCodeInput @spread
+  ): Boolean!
+}

@@ -1,0 +1,57 @@
+input UpdateDeskInput @validator {
+  """
+  desk id
+  """
+  id: ID!
+
+  """
+  desk name
+  """
+  name: String
+  @rules(apply: [
+    "max:255",
+  ])
+
+  """
+  desk slug
+  """
+  slug: String
+  @transformSlug
+
+  """
+  desk description
+  """
+  description: String
+  @rules(apply: [
+    "nullable",
+    "string",
+  ])
+
+  """
+  seo meta data
+  """
+  seo: JSON
+
+  """
+  determinate desk is open_access or not
+  """
+  open_access: Boolean
+
+  """
+  layout id
+  """
+  layout_id: ID
+  @rules(apply: [
+    "bail",
+    "nullable",
+    "exists:layouts,id,deleted_at,NULL",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an existing desk data
+  """
+  updateDesk(input: UpdateDeskInput! @spread): Desk!
+  @clearCacheQuery(group: "desk")
+}

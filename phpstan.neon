@@ -1,0 +1,55 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/phpstan/phpstan-mockery/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
+    - vendor/bensampo/laravel-enum/extension.neon
+
+parameters:
+    level: max
+
+    parallel:
+        maximumNumberOfProcesses: 4
+
+    paths:
+        - app
+        - config
+        - database
+        - resources
+        - routes
+
+    excludePaths:
+        - _ide_helper_models.php
+        - app/Console/Migrations/MigrateCustomerIoSubscription.php
+        - app/GraphQL/Mutations/Site/ImportSiteContent.php
+        - app/Jobs/Tenants/Database/CreateDefaultTenantBouncers.php
+        - app/Listeners/Auth/EnableCustomerIoSubscription.php
+        - app/Providers/PostmarkServiceProvider.php
+
+    ignoreErrors:
+        - '#Method .+?\:\:__invoke\(\) has parameter \$_ with no type specified\.#'
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\(Relations\\HasMany|Builder)<App\\Models\\Tenants\\Article>\:\:searchable\(\)\.#'
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\(Relations\\HasMany|Builder)<App\\Models\\Tenants\\Article>\:\:unsearchable\(\)\.#'
+        - '#Parameter \#1 \$callback of method Illuminate\\Support\\Collection<\(int\|string\),mixed>\:\:each\(\) expects callable\(mixed, int\|string\)\: mixed, Closure\(stdClass\)\: void given\.#'
+        - '#Parameter \#1 \$callback of method Illuminate\\Support\\Collection<.+?>\:\:map\(\) expects callable\(mixed, .+?\)\: string, Closure\(.+?\)\: .+? given\.#'
+        - '#Parameter \#1 \$callback of method Illuminate\\Support\\LazyCollection<\(int\|string\),mixed>\:\:each\(\) expects callable\(mixed, int\|string\)\: mixed, Closure\(stdClass\)\: void given\.#'
+        - '#Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection<\(int\|string\),Illuminate\\Database\\Eloquent\\Model>\:\:map\(\) expects callable\(Illuminate\\Database\\Eloquent\\Model, int\|string\)\: mixed, Closure\(App\\Models\\Tenant\)\: mixed given\.#'
+        - '#Parameter \#1 \$callback of function array_map expects \(callable\(.+?\)\: mixed\)\|null, Closure\(.+?\)\: .+? given\.#'
+        -
+          message: '#Access to an undefined property Laravel\\Cashier\\Subscription\:\:\$user_id\.#'
+          reportUnmatched: false
+          paths:
+            - app/Http/Controllers/AppSumoNotificationController.php
+        -
+          message: '#Dead catch \- Illuminate\\Http\\Client\\ConnectionException is never thrown in the try block\.#'
+          reportUnmatched: false
+          paths:
+            - app/Console/Commands/Cloudflare/Pages/ClearSiteCacheByTenant.php
+        -
+          message: '#Call to an undefined method Illuminate\\Database\\Schema\\ColumnDefinition\:\:constrained\(\)\.#'
+          paths:
+            - database/migrations/*
+        -
+          message: '#Method Database\\Factories\\.+?\:\:definition\(\) should return array<string, .+?> but returns array<string, mixed>\.#' # https://github.com/phpstan/phpstan/issues/6371
+          paths:
+            - database/factories/*

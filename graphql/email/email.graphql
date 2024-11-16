@@ -1,0 +1,35 @@
+union EmailTargetUnion = Article
+
+type Email {
+  """
+  email id
+  """
+  id: ID!
+
+  """
+  email receiver(recipient)
+  """
+  to: EmailString!
+
+  """
+  email subject(title)
+  """
+  subject: String!
+
+  """
+  email content(HTML format)
+  """
+  content: String!
+
+  """
+  email target
+  """
+  target: EmailTargetUnion @morphTo
+}
+
+extend type Query @guard {
+  """
+  get specific email
+  """
+  email(id: ID! @eq): Email @find
+}

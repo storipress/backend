@@ -1,0 +1,46 @@
+type Release {
+  """
+  release id
+  """
+  id: ID!
+
+  """
+  release state
+  """
+  state: ReleaseState!
+
+  """
+  release meta data
+  """
+  meta: JSON
+
+  """
+  release elapsed time
+  """
+  elapsed_time: Int! @rename(attribute: "time")
+
+  """
+  release create time
+  """
+  created_at: DateTime!
+
+  """
+  release update time
+  """
+  updated_at: DateTime!
+}
+
+extend type Query @tenantOnlyApi {
+  """
+  fetch releases
+  """
+  releases: [Release!]!
+  @paginate
+  @orderBy(column: "created_at", direction: DESC)
+
+  """
+  get specific release
+  """
+  release(id: ID! @eq): Release
+  @find
+}

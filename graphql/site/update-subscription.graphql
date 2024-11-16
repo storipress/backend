@@ -1,0 +1,57 @@
+input EnableSubscriptionInput @validator {
+  """
+  enable paid subscription or not
+  """
+  subscription: Boolean!
+
+  """
+  enable newsletter or not
+  """
+  newsletter: Boolean!
+
+  """
+  support email
+  """
+  email: EmailString
+
+  """
+  subscription panel background color
+  """
+  accent_color: String
+  @rules(apply: [
+    "string",
+    "regex:/^#[0-9a-fA-F]{6}$/",
+  ])
+
+  """
+  subscription currency
+  """
+  currency: String
+  @rules(apply: [
+    "App\\Rules\\Currency",
+  ])
+
+  """
+  subscription monthly price
+  """
+  monthly_price: String
+  @rules(apply: [
+    "numeric",
+  ])
+
+  """
+  subscription yearly price
+  """
+  yearly_price: String
+  @rules(apply: [
+    "numeric",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update publication subscription
+  """
+  updateSubscription(input: EnableSubscriptionInput! @spread): Site!
+  @clearCacheQuery(group: "publication")
+}

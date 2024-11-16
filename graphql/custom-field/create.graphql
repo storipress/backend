@@ -1,0 +1,49 @@
+input CreateCustomFieldInput @validator(class: "App\\GraphQL\\Validators\\UpdateCustomFieldInputValidator") {
+  """
+  custom field group id
+  """
+  custom_field_group_id: ID!
+  @rules(apply: [
+    "bail",
+    "required",
+    "exists:custom_field_groups,id,deleted_at,NULL",
+  ])
+
+  """
+  custom field key
+  """
+  key: String!
+  # this field is validated by the validator
+
+  """
+  custom field type
+  """
+  type: CustomFieldType!
+
+  """
+  custom field name
+  """
+  name: String!
+  @rules(apply: [
+    "required",
+    "max:200",
+  ])
+
+  description: String @convertEmptyStringsToNull
+  @rules(apply: [
+    "max:2000",
+  ])
+
+  """
+  custom field options
+  """
+  options: JSON
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create new custom field
+  """
+  createCustomField(input: CreateCustomFieldInput! @spread): CustomField!
+  @clearCacheQuery(group: "custom-field")
+}

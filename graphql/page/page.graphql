@@ -1,0 +1,51 @@
+type Page {
+  """
+  page id
+  """
+  id: ID!
+
+  """
+  page title,
+  e.g. About Us
+  """
+  title: String!
+
+  """
+  draft content
+  """
+  draft: JSON
+
+  """
+  live content
+  """
+  current: JSON
+
+  """
+  seo meta data
+  """
+  seo: JSON
+
+  """
+  page order
+  """
+  order: Int!
+
+  """
+  layout id
+  """
+  layout: Layout @belongsTo
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  fetch pages
+  """
+  pages: [Page!]!
+  @all
+
+  """
+  get specific page
+  """
+  page(id: ID! @eq): Page
+  @find
+}

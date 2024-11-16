@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  duplicate an article
+  """
+  duplicateArticle(id: ID!): Article!
+}

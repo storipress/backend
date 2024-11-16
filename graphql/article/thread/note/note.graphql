@@ -1,0 +1,39 @@
+"""
+article thread note
+"""
+type ArticleThreadNote {
+  """
+  note id
+  """
+  id: ID!
+
+  """
+  note content
+  """
+  content: String!
+
+  """
+  note create time
+  """
+  created_at: DateTime!
+
+  """
+  note last update time
+  """
+  updated_at: DateTime!
+
+  """
+  article which owns this note
+  """
+  article(trashed: Trashed = WITH @trashed): Article! @belongsTo
+
+  """
+  article thread which owns this note
+  """
+  thread(trashed: Trashed = WITH @trashed): ArticleThread! @belongsTo
+
+  """
+  user who owns this note
+  """
+  user: User!
+}

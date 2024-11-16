@@ -1,0 +1,47 @@
+input UpdateScraperInput {
+  """
+  scraper token
+  """
+  token: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+
+  """
+  scraper state
+  """
+  state: ScraperState
+
+  """
+  arbitrary data
+  """
+  data: JSON
+  @convertEmptyStringsToNull
+
+  """
+  scraper finished time
+  """
+  finished_at: String
+  @rules(apply: [
+    "date",
+  ])
+
+  """
+  scraper failed time
+  """
+  failed_at: String
+  @rules(apply: [
+    "date",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi {
+  """
+  update existing scraper
+  """
+  updateScraper(
+    input: UpdateScraperInput! @spread
+  ): Scraper!
+  @clearCacheQuery(group: "scraper")
+}

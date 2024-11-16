@@ -1,0 +1,40 @@
+input CreateCustomFieldGroupInput {
+  """
+  custom field group key
+  """
+  key: String!
+  @rules(apply: [
+    "bail",
+    "required",
+    "between:3,32",
+    "regex:/^[a-z_][a-z0-9_]*$/",
+    "unique:custom_field_groups,key",
+  ])
+
+  """
+  custom field group type
+  """
+  type: CustomFieldGroupType!
+
+  """
+  custom field group name
+  """
+  name: String!
+  @rules(apply: [
+    "required",
+    "max:200",
+  ])
+
+  description: String @convertEmptyStringsToNull
+  @rules(apply: [
+    "max:2000",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create new custom field group
+  """
+  createCustomFieldGroup(input: CreateCustomFieldGroupInput! @spread): CustomFieldGroup!
+  @clearCacheQuery(group: "custom-field-group")
+}

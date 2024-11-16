@@ -1,0 +1,28 @@
+type Role {
+  """
+  role id
+  """
+  id: ID!
+
+  """
+  role name
+  """
+  name: String!
+
+  """
+  role brief description
+  """
+  title: String!
+
+  """
+  role level
+  """
+  level: Float!
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  fetch roles
+  """
+  roles: [Role!]!
+}

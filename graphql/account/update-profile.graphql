@@ -1,0 +1,113 @@
+"""
+account profile update form
+"""
+input UpdateProfileInput {
+  """
+  first name,
+  e.g. 大明
+  """
+  first_name: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+  ])
+
+  """
+  last name,
+  e.g. 王
+  """
+  last_name: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+  ])
+
+  slug: String
+  @sluggable
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "unique:App\\Models\\User,slug",
+  ])
+
+  """
+  this field is used to remove avatar,
+  the only available value is `null`
+  """
+  avatar: String
+  @convertEmptyStringsToNull
+  @deprecated(reason: "use `removeAvatar` mutation")
+
+  """
+  phone number with national prefix,
+  e.g. +1
+  """
+  phone_number: String
+  @rules(apply: [
+    "nullable",
+    "phone:AUTO",
+  ])
+
+  """
+  gender
+  """
+  gender: UserGender
+
+  """
+  birthday
+  """
+  birthday: Date
+
+  """
+  location
+  """
+  location: String
+  @convertEmptyStringsToNull
+
+  """
+  description of personal profile
+  """
+  bio: String
+  @convertEmptyStringsToNull
+
+  """
+  job title
+  """
+  job_title: String
+  @convertEmptyStringsToNull
+
+  """
+  public email
+  """
+  contact_email: EmailString
+  @rules(apply: [
+    "nullable",
+    "email:rfc,strict,dns,spoof",
+  ])
+
+  """
+  personal website url
+  """
+  website: String
+  @convertEmptyStringsToNull
+
+  """
+  social network links
+  """
+  socials: JSON
+
+  """
+  arbitrary data field
+  """
+  meta: JSON
+  @rename(attribute: "data")
+}
+
+extend type Mutation @guard {
+  """
+  update account profile
+  """
+  updateProfile(input: UpdateProfileInput! @spread): User!
+}

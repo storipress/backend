@@ -1,0 +1,23 @@
+type AuthToken {
+  """
+  access token
+  """
+  access_token: String!
+
+  token_type: String!
+
+  expires_in: Int!
+
+  user_id: ID!
+}
+
+extend type Mutation {
+  """
+  sign out of the app
+  """
+  signOut: Boolean! @guard
+
+  refreshToken: AuthToken!
+  @guard
+  @deprecated
+}

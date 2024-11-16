@@ -1,0 +1,45 @@
+input CreateScraperSelectorInput {
+  """
+  scraper token
+  """
+  token: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+
+  """
+  selector type
+  """
+  type: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+
+  """
+  selector value
+  """
+  value: String
+  @convertEmptyStringsToNull
+  @rules(apply: [
+    "string",
+    "nullable",
+  ])
+
+  """
+  arbitrary data
+  """
+  data: JSON
+  @convertEmptyStringsToNull
+}
+
+extend type Mutation @tenantOnlyApi {
+  """
+  create new scraper selector
+  """
+  createScraperSelector(
+    input: CreateScraperSelectorInput! @spread
+  ): ScraperSelector!
+  @clearCacheQuery(group: "scraper")
+}

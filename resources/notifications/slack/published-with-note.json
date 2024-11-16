@@ -1,0 +1,35 @@
+[
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "{authors}'s article <{url}|*{title}*> has been published!"
+    }
+  },
+  {
+    "type": "image",
+    "image_url": "{image}",
+    "alt_text": "inspiration"
+  },
+  {
+    "type": "divider"
+  },
+  {
+    "type": "context",
+    "elements": [
+      {
+        "type": "plain_text",
+        "text": "The Editor(s) for this article left the following note:",
+        "emoji": true
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "{note}"
+    }
+  }
+]
+

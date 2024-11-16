@@ -1,0 +1,36 @@
+type ArticleThread {
+  """
+  thread id
+  """
+  id: ID!
+
+  """
+  article id
+  """
+  article_id: ID!
+
+  """
+  thread position in document
+  """
+  position: JSON!
+
+  """
+  thread create time
+  """
+  created_at: DateTime!
+
+  """
+  thread last update time
+  """
+  updated_at: DateTime!
+
+  """
+  thread resolve(delete) time
+  """
+  resolved_at: DateTime
+
+  """
+  notes owned by the article's thread
+  """
+  notes(hasThread: _ = {} @whereHasConditions(relation: "thread")): [ArticleThreadNote!]! @hasMany
+}

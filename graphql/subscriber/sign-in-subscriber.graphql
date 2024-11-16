@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi {
+  """
+  sign in to customer site
+  """
+  signInSubscriber(token: String!): String!
+}

@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  manually send article newsletter
+  """
+  sendArticleNewsletter(id: ID!): Article!
+}

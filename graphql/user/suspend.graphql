@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  suspend an user
+  """
+  suspendUser(ids: [ID!]!): [User!]!
+  @clearCacheQuery(group: "user")
+}

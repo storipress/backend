@@ -1,0 +1,103 @@
+type CustomDomain {
+  domain: String!
+
+  group: CustomDomainGroup!
+
+  hostname: String!
+
+  type: String!
+
+  value: String!
+
+  ok: Boolean!
+
+  error: String
+}
+
+input CheckCustomDomainAvailabilityInput {
+  """
+  domain name
+  """
+  value: String!
+  @rules(apply: [
+    "required",
+    "is_domain_name",
+  ])
+}
+
+type CheckCustomDomainAvailabilityResponse {
+  """
+  whether this domain is available or not
+  """
+  available: Boolean!
+
+  """
+  whether this domain is available for static site or not
+  """
+  site: Boolean!
+
+  """
+  whether this domain is available for mailing or not
+  """
+  mail: Boolean!
+
+  """
+  whether this domain is available for redirect or not
+  """
+  redirect: Boolean!
+}
+
+input InitializeCustomDomainInput {
+  """
+  domain name for static site
+  """
+  site: String = null
+  @rules(apply: [
+    "required_with:redirect",
+    "nullable",
+    "is_domain_name",
+  ])
+
+  """
+  domain name for mailing
+  """
+  mail: String = null
+  @rules(apply: [
+    "required_without:site",
+    "nullable",
+    "is_domain_name",
+  ])
+
+  """
+  domain for static site redirection
+  """
+  redirect: [String!]!
+  @rules(apply: [
+    "required",
+    "is_domain_name",
+  ])
+}
+
+type CustomDomainDnsStatus {
+  site: [CustomDomain!]!
+
+  mail: [CustomDomain!]!
+
+  redirect: [CustomDomain!]!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  checkCustomDomainAvailability(
+    input: CheckCustomDomainAvailabilityInput! @spread
+  ): CheckCustomDomainAvailabilityResponse!
+
+  initializeCustomDomain(
+    input: InitializeCustomDomainInput! @spread
+  ): CustomDomainDnsStatus!
+
+  checkCustomDomainDnsStatus: CustomDomainDnsStatus!
+
+  confirmCustomDomain: Boolean!
+
+  removeCustomDomain: Boolean!
+}

@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  generate a new newstand key,
+  and this will automatically delete the old one
+  """
+  generateNewstandKey: String!
+}

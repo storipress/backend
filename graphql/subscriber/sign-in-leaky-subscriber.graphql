@@ -1,0 +1,15 @@
+input SignInLeakySubscriberInput {
+  """
+  subscriber email
+  """
+  email: EmailString!
+}
+
+extend type Mutation @tenantOnlyApi {
+  """
+  sign up/in to customer site
+  """
+  signInLeakySubscriber(
+    input: SignInLeakySubscriberInput! @spread
+  ): String!
+}

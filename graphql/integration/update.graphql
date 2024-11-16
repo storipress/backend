@@ -1,0 +1,22 @@
+input UpdateIntegrationInput {
+  """
+  integration key
+  """
+  key: ID!
+  @rules(apply: [
+    "App\\Rules\\IntegrationKey",
+  ])
+
+  """
+  integration data
+  """
+  data: JSON!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update integration data
+  """
+  updateIntegration(input: UpdateIntegrationInput! @spread): Integration!
+  @clearCacheQuery(group: "integration")
+}

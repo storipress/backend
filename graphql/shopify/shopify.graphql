@@ -1,0 +1,35 @@
+type ShopifyProduct {
+  id: ID!
+  title: String!
+  slug: String!
+  path: String!
+  images: [ShopifyProductImage!]!
+  variants: [ShopifyProductVariant!]!
+}
+
+type ShopifyProductVariant {
+  id: ID!
+  title: String!
+  price: String!
+  sku: String!
+  images: [ShopifyProductImage!]!
+}
+
+type ShopifyProductImage {
+  id: ID!
+  product_id: ID!
+  src: String!
+  width: Int!
+  height: Int!
+}
+
+type ShopifyCollection {
+  products: [ShopifyProduct!]!
+  page_info: String
+}
+
+extend type Query @tenantOnlyApi @guard {
+  shopifyProducts(page_info: String): ShopifyCollection!
+
+  searchShopifyProducts(keyword: String!): ShopifyCollection!
+}

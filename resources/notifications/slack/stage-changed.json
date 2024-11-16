@@ -1,0 +1,22 @@
+[
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "*{name}* moved article <{url}|*{title}*> to *{stage}*."
+    }
+  },
+  {
+    "type": "context",
+    "elements": [
+      {
+        "type": "mrkdwn",
+        "text": "*Desk: {desk}*"
+      },
+      {
+        "type": "plain_text",
+        "text": "Author(s): {authors}"
+      }
+    ]
+  }
+]

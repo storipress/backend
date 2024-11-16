@@ -1,0 +1,6 @@
+extend type Mutation {
+  """
+  Checks whether an email is being used by an existing user in Storipress
+  """
+  checkEmailExist(email: EmailString!): Boolean! @rateLimiting(name: "user-check-email-exist")
+}

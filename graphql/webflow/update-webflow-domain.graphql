@@ -1,0 +1,16 @@
+input UpdateWebflowDomainInput {
+  """
+  site domain
+  """
+  value: String!
+  @rules(apply: [
+    "required",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update Webflow site domain
+  """
+  updateWebflowDomain(input: UpdateWebflowDomainInput! @spread): Boolean!
+}

@@ -1,0 +1,30 @@
+input SendColdEmailToSubscriberInput {
+  """
+  subscriber id
+  """
+  id: String!
+
+  """
+  email subject
+  """
+  subject: String!
+
+  """
+  email content
+  """
+  content: String!
+
+  """
+  reply to for the email
+  """
+  reply_to: EmailString
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  send cold email to subscriber
+  """
+  sendColdEmailToSubscriber(
+    input: SendColdEmailToSubscriberInput! @spread
+  ): Boolean!
+}

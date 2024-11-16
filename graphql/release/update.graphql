@@ -1,0 +1,38 @@
+input UpdateReleaseInput {
+  """
+  release id
+  """
+  id: ID!
+
+  """
+  release state
+  """
+  state: ReleaseState
+
+  """
+  release state progress
+  """
+  progress: Int
+  @rules(apply: [
+    "integer",
+    "between:0,100",
+  ])
+
+  """
+  release meta data
+  """
+  meta: JSON
+
+  """
+  release final message
+  """
+  message: String
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an existing release data
+  """
+  updateRelease(input: UpdateReleaseInput! @spread): Release!
+  @clearCacheQuery(group: "release")
+}

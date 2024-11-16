@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  manually assign a subscription
+  """
+  assignSubscriberSubscription(id: ID!): Boolean!
+}

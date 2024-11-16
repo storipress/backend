@@ -1,0 +1,3 @@
+extend type Query @tenantOnlyApi {
+    articleDecryptKey(id: ID!): String @guard
+}

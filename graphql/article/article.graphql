@@ -1,0 +1,311 @@
+"""
+Publication Articles
+"""
+type Article {
+  """
+  article id
+  """
+  id: ID!
+
+  """
+  article string id
+  """
+  sid: ID!
+
+  """
+  article shadow authors(no real account authors)
+  """
+  shadow_authors: [String!]
+
+  """
+  article title
+  """
+  title: String!
+
+  """
+  use for article url,
+  e.g. /posts/{slug}
+  """
+  slug: String!
+
+  """
+  article url pathname history
+  """
+  pathnames: JSON
+
+  """
+  article description
+  """
+  blurb: String
+
+  """
+  use for kanban sorting, group with desk_id field
+  """
+  order: Int!
+
+  """
+  determinate article is featured or not
+  """
+  featured: Boolean!
+
+  """
+  determinate article publish type is right now, schedule or none
+  """
+  publish_type: ArticlePublishType!
+
+  """
+  article content, prosemirror format
+  """
+  document: JSON
+
+  """
+  article content, html format
+  """
+  html: String
+
+  """
+  article content, plaintext format
+  """
+  plaintext: String
+
+  """
+  cover image and its properties
+  """
+  cover: JSON
+
+  """
+  seo meta data
+  """
+  seo: JSON
+
+  """
+  article url
+  """
+  url: String!
+
+  """
+  auto post data
+  """
+  auto_posting: JSON
+
+  """
+  determinate article is free, member or subscriber
+  """
+  plan: ArticlePlan!
+
+  """
+  newsletter is on or not for this article
+  """
+  newsletter: Boolean!
+
+  """
+  when the newsletter is on, the time that the email has been sent
+  """
+  newsletter_at: DateTime
+
+  """
+  article content encryption key
+  """
+  encryption_key: String!
+
+  """
+  determinate article is in draft stage or not
+  """
+  draft: Boolean!
+
+  """
+  determinate article is in scheduled stage or not
+  """
+  scheduled: Boolean!
+
+  """
+  determinate article is in published stage or not
+  """
+  published: Boolean!
+
+  """
+  article published time
+  """
+  published_at: DateTime
+
+  """
+  article created time
+  """
+  created_at: DateTime!
+
+  """
+  article last updated time, all modified opteration will update this field
+  """
+  updated_at: DateTime!
+
+  """
+  article desk
+  """
+  desk: Desk! @belongsTo
+
+  """
+  layout this article used
+  """
+  layout: Layout @belongsTo
+
+  """
+  current article stage
+  """
+  stage: Stage!
+
+  """
+  article's authors
+  """
+  authors: [User!]! @belongsToMany
+
+  """
+  article's tags
+  """
+  tags: [Tag!]! @belongsToMany
+
+  """
+  editing note threads
+  """
+  threads: [ArticleThread!]! @hasMany
+
+  """
+  related articles
+  """
+  relevances: [Article!]!
+
+  """
+  custom fields for metafield
+  """
+  metafields: [CustomField!]!
+
+  """
+  custom fields for content block
+  """
+  content_blocks: [CustomField!]!
+}
+
+input DateRange {
+  from: DateTime!
+  to: DateTime!
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  using pagination to fetch articles
+  """
+  articles(
+    """
+    filter articles by desk id
+    """
+    desk: ID @eq(key: "desk_id")
+
+    """
+    filter articles by desk ids
+    """
+    desk_ids: [ID!] @in(key: "desk_id")
+
+    """
+    filter featured articles
+    """
+    featured: Boolean @eq
+
+    """
+    published_at is past and stage is ready
+    """
+    published: Boolean @scope
+
+    """
+    unscheduled articles(published_at is null)
+    """
+    unscheduled: Boolean @scope
+
+    """
+    schedule/publish(published_at) time is between `from` and `to`
+    """
+    scheduledRange: DateRange @whereBetween(key: "published_at")
+
+    """
+    sort result by target fields
+    """
+    sortBy: _ @orderBy(columns: ["published_at", "updated_at"])
+
+    """
+    filter the articles that don't have desk
+    """
+    hasDesk: _ = {} @whereHasConditions(relation: "desk")
+  ): [Article!]! @paginate(
+    defaultCount: 50
+    maxCount: 50
+  )
+
+  articlesCursor(
+    """
+    filter articles by desk ids
+    """
+    desk_ids: [ID!] @in(key: "desk_id")
+
+    """
+    filter featured articles
+    """
+    featured: Boolean @eq
+
+    """
+    published_at is past and stage is ready
+    """
+    published: Boolean @scope
+
+    """
+    unscheduled articles(published_at is null)
+    """
+    unscheduled: Boolean @scope
+
+    """
+    schedule/publish(published_at) time is between `from` and `to`
+    """
+    scheduledRange: DateRange @whereBetween(key: "published_at")
+
+    """
+    sort result by target fields
+    """
+    sortBy: _ @orderBy(columns: ["published_at", "updated_at"])
+
+    """
+    filter the articles that don't have desk
+    """
+    hasDesk: _ = {} @whereHasConditions(relation: "desk")
+  ): [Article!]! @paginate(
+    type: CONNECTION
+    defaultCount: 15
+    maxCount: 15
+  )
+
+  """
+  fetch articles apply one of following constraints(mutually exclusive):
+  - schedule/publish time is between `from` and `to`
+  - unscheduled articles
+  """
+  articlesAll(
+    unscheduled: Boolean @scope
+    range: DateRange @whereBetween(key: "published_at")
+    hasDesk: _ = {} @whereHasConditions(relation: "desk")
+  ): [Article!]! @all @deprecated(reason: "use articles query")
+
+  """
+  get specific article
+  """
+  article(
+    id: ID @eq
+
+    sid: ID @scope
+
+    slug: String @eq
+
+    hasDesk: _ = {} @whereHasConditions(relation: "desk")
+  ): Article
+  @find
+
+  """
+  get article typesense search key
+  """
+  articleSearchKey: String!
+}

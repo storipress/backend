@@ -1,0 +1,29 @@
+input UpdateDesignInput {
+  """
+  key
+  """
+  key: ID!
+
+  """
+  draft content
+  """
+  draft: JSON
+
+  """
+  live content
+  """
+  current: JSON
+
+  """
+  seo meta data
+  """
+  seo: JSON
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an existing design data
+  """
+  updateDesign(input: UpdateDesignInput! @spread): Design!
+  @clearCacheQuery(group: "design")
+}

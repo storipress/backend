@@ -1,0 +1,8 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  setup the WordPress integration
+  """
+  setupWordPress(
+    code: String!
+  ): Boolean!
+}

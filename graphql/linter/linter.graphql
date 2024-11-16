@@ -1,0 +1,46 @@
+type Linter {
+  """
+  linter id
+  """
+  id: ID!
+
+  """
+  linter title
+  """
+  title: String!
+
+
+  """
+  linter description
+  """
+  description: String!
+
+
+  """
+  linter prompt
+  """
+  prompt: String!
+
+  """
+  linter create time
+  """
+  created_at: DateTime!
+
+  """
+  linter last update time
+  """
+  updated_at: DateTime!
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  fetch linters
+  """
+  linters: [Linter!]!
+  @paginate(
+    type: CONNECTION
+    defaultCount: 50
+    maxCount: 50
+  )
+  @orderBy(column: "created_at", direction: ASC)
+}

@@ -1,0 +1,20 @@
+input TransferDeskArticlesInput {
+  from_id: ID!
+  @rules(apply: [
+    "required",
+    "exists:desks,id,deleted_at,NULL",
+  ])
+
+  to_id: ID!
+  @rules(apply: [
+    "required",
+    "exists:desks,id,deleted_at,NULL",
+  ])
+
+  trash: Boolean
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  transferDeskArticles(input: TransferDeskArticlesInput! @spread): Boolean!
+  @clearCacheQuery(group: "desk")
+}

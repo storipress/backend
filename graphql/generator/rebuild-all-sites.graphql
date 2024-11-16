@@ -1,0 +1,7 @@
+extend type Mutation @guard {
+  """
+  rebuild all sites
+  """
+  rebuildAllSites: Boolean
+  @rateLimiting(name: "rebuild-all-sites")
+}

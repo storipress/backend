@@ -1,0 +1,21 @@
+input UpdateWebflowCollectionInput {
+  """
+  collection type
+  """
+  type: WebflowCollectionType!
+
+  """
+  collection id
+  """
+  value: ID!
+  @rules(apply: [
+    "required",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update Webflow collection id
+  """
+  updateWebflowCollection(input: UpdateWebflowCollectionInput! @spread): Boolean!
+}

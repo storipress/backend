@@ -1,0 +1,28 @@
+input UploadImageInput {
+  """
+  presigned upload url key
+  """
+  key: ID!
+
+  """
+  type
+  """
+  type: UploadImage!
+
+  """
+  target id
+  """
+  target_id: ID!
+
+  """
+  signature of the request
+  """
+  signature: String!
+}
+
+extend type Mutation @guard {
+  """
+  update an image
+  """
+  uploadImage(input: UploadImageInput! @spread): Media!
+}

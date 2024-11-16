@@ -1,0 +1,28 @@
+type Notification {
+  """
+  notification id
+  """
+  id: ID!
+
+  """
+  notification state
+  """
+  type: String!
+
+  """
+  notification meta data
+  """
+  data: JSON
+
+  """
+  notification create time
+  """
+  occurred_at: DateTime! @rename(attribute: "created_at")
+}
+
+extend type Query @tenantOnlyApi {
+  """
+  fetch notifications
+  """
+  notifications: [Notification!]!
+}

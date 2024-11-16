@@ -1,0 +1,158 @@
+{
+  "name": "storipress/api",
+  "description": "Storipress backend API service.",
+  "license": "proprietary",
+  "type": "project",
+  "keywords": [
+    "storipress"
+  ],
+  "require": {
+    "php": "^8.2",
+    "ext-fileinfo": "*",
+    "ext-imagick": "*",
+    "ext-intl": "*",
+    "ext-json": "*",
+    "ext-pdo": "*",
+    "ext-redis": "*",
+    "akki-io/laravel-google-analytics": "~1.8.0",
+    "aws/aws-sdk-php-laravel": "~3.9.0",
+    "bakame/laravel-domain-parser": "~1.3.0",
+    "bensampo/laravel-enum": "~6.11.0",
+    "bepsvpt/blurhash": "~3.0.0",
+    "bepsvpt/secure-headers": "~7.5.0",
+    "coconutcraig/laravel-postmark": "~3.2.0",
+    "cviebrock/eloquent-sluggable": "~10.0.0",
+    "doctrine/dbal": "~3.8.0",
+    "google/cloud-bigquery": "~1.30.0",
+    "guzzlehttp/psr7": "~2.6.2",
+    "hashids/hashids": "~5.0.0",
+    "intervention/image": "~2.7.2",
+    "jolicode/slack-php-api": "~4.7.0",
+    "laravel/cashier": "~14.14.0",
+    "laravel/framework": "~10.48.0",
+    "laravel/horizon": "~5.24.0",
+    "laravel/socialite": "~5.14.0",
+    "laravel/tinker": "~2.9.0",
+    "lcobucci/jwt": "~5.3.0",
+    "league/csv": "~9.16.0",
+    "league/flysystem-aws-s3-v3": "~3.28.0",
+    "league/flysystem-path-prefixing": "~3.28.0",
+    "mll-lab/graphql-php-scalars": "~6.2.0",
+    "monooso/unobserve": "~5.2.0",
+    "nelexa/zip": "^4.0",
+    "nicmart/tree": "^0.8.0",
+    "nuwave/lighthouse": "~6.36.0",
+    "openai-php/laravel": "~0.9.0",
+    "pear/net_dns2": "~1.5.3",
+    "php-http/guzzle7-adapter": "~1.0.0",
+    "pusher/pusher-php-server": "~7.2.3",
+    "rutorika/sortable": "~9.2.0",
+    "segmentio/analytics-php": "~3.8.0",
+    "sentry/sentry-laravel": "~4.5.0",
+    "socialiteproviders/linkedin": "~4.2.0",
+    "socialiteproviders/shopify": "~4.1.0",
+    "socialiteproviders/slack": "dev-master",
+    "spatie/laravel-ignition": "~2.7.0",
+    "spatie/url": "~2.4.0",
+    "stancl/tenancy": "~3.8.0",
+    "stechstudio/laravel-zipstream": "~5.0.2",
+    "stevebauman/location": "~7.2.0",
+    "storipress/facebook-sdk": "~0.0.3",
+    "storipress/revert-sdk": "~0.0.1",
+    "storipress/socialite-providers": "~1.0.1",
+    "storipress/twitter-sdk": "~0.0.1",
+    "storipress/webflow-sdk": "~2.0.5",
+    "storipress/wordpress-sdk": "~1.0.19",
+    "symfony/http-client": "~6.4.0",
+    "symfony/postmark-mailer": "~6.4.0",
+    "tuupola/base62": "~2.1.0",
+    "typesense/laravel-scout-typesense-driver": "dev-master",
+    "unsplash/unsplash": "~3.2.1",
+    "wapmorgan/unified-archive": "~1.2.0",
+    "webmozart/assert": "~1.11.0",
+    "wildbit/postmark-php": "~5.0.0"
+  },
+  "require-dev": {
+    "barryvdh/laravel-ide-helper": "~3.0.0",
+    "ergebnis/composer-normalize": "~2.42.0",
+    "fakerphp/faker": "~1.23.0",
+    "larastan/larastan": "~2.9.0",
+    "laravel/pint": "~1.16.0",
+    "mockery/mockery": "~1.6.2",
+    "nunomaduro/collision": "~7.10.0",
+    "pestphp/pest-plugin-faker": "~2.0.0",
+    "pestphp/pest-plugin-laravel": "~2.4.0",
+    "phpro/grumphp": "~2.5.0",
+    "phpstan/phpstan-mockery": "~1.1.0",
+    "phpstan/phpstan-phpunit": "~1.4.0",
+    "phpstan/phpstan-webmozart-assert": "~1.2.0",
+    "spatie/docker": "~1.13.0"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:storipress/laravel-scout-typesense-driver.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:storipress/slack.git"
+    }
+  ],
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/"
+    },
+    "files": [
+      "app/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/package-versions-deprecated": true,
+      "ergebnis/composer-normalize": true,
+      "pestphp/pest-plugin": true,
+      "php-http/discovery": true,
+      "phpro/grumphp": true
+    },
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "extra": {
+    "composer-normalize": {
+      "indent-size": 2,
+      "indent-style": "space"
+    },
+    "laravel": {
+      "dont-discover": [
+        "coconutcraig/laravel-postmark",
+        "stancl/tenancy"
+      ]
+    }
+  },
+  "scripts": {
+    "post-update-cmd": [
+      "@php artisan ide-helper:generate --ansi",
+      "@php artisan ide-helper:meta --ansi"
+    ],
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --quiet"
+    ],
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+      "@php artisan key:generate --ansi"
+    ]
+  }
+}

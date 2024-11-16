@@ -1,0 +1,41 @@
+input CreateStageInput {
+  """
+  stage name
+  """
+  name: String!
+  @rules(apply: [
+    "required",
+    "string",
+    "max:255",
+  ])
+
+  """
+  stage color
+  """
+  color: String!
+  @rules(apply: [
+    "required",
+    "regex:/^#[0-9a-fA-F]{6}$/",
+  ])
+
+  """
+  stage icon
+  """
+  icon: String!
+  @rules(apply: [
+    "required",
+  ])
+
+  """
+  target stage id, place new stage after target stage id
+  """
+  after: ID!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create new stage
+  """
+  createStage(input: CreateStageInput! @spread): Stage!
+  @clearCacheQuery(group: "stage")
+}

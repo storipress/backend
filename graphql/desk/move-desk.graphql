@@ -1,0 +1,21 @@
+input MoveDeskInput {
+  id: ID!
+  @rules(apply: [
+    "required",
+    "exists:desks,id,deleted_at,NULL",
+  ])
+
+  target_id: ID
+  @rules(apply: [
+    "nullable",
+    "exists:desks,id,deleted_at,NULL",
+  ])
+
+  before_id: ID
+
+  after_id: ID
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  moveDesk(input: MoveDeskInput! @spread): Desk!
+}

@@ -1,0 +1,45 @@
+input UnsplashSearchInput {
+  """
+  search keyword
+  """
+  keyword: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+
+  """
+  change result page
+  """
+  page: Int
+  @rules(apply: [
+    "integer",
+    "min:1",
+  ])
+
+  """
+  image orientation
+  """
+  orientation: String
+  @rules(apply: [
+    "string",
+    "in:landscape,portrait,squarish",
+  ])
+}
+
+extend type Query @tenantOnlyApi {
+  """
+  random list some images
+  """
+  unsplashList(page: Int!): JSON!
+
+  """
+  search unsplash image
+  """
+  unsplashSearch(input: UnsplashSearchInput! @spread): JSON!
+
+  """
+  trigger a download for specific image
+  """
+  unsplashDownload(id: String): String!
+}

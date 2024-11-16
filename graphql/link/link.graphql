@@ -1,0 +1,35 @@
+union LinkTargetUnion =
+  Article |
+  Desk |
+  Tag |
+  User |
+  Page
+
+type Link {
+  """
+  link id
+  """
+  id: ID!
+
+  """
+  link source, e.g.
+  builder, editor
+  """
+  source: LinkSource!
+
+  """
+  determinate the link is a reference(internal) or not
+  """
+  reference: Boolean!
+
+  value: String
+
+  target: LinkTargetUnion @morphTo
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  fetch link
+  """
+  link(id: ID!): Link!
+}

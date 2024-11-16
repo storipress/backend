@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  disable publication subscription
+  """
+  disableSubscription: Site! @deprecated
+}

@@ -1,0 +1,24 @@
+input IframelyIframelyInput {
+  """
+  target url
+  """
+  url: String!
+  @rules(apply: [
+    "required",
+    "active_url",
+  ])
+
+  """
+  iframely params,
+  reference: https://iframely.com/docs/parameters
+  """
+  params: JSON!
+}
+
+extend type Query @tenantOnlyApi {
+  """
+  make a iframely request for specific url
+  """
+  iframelyIframely(input: IframelyIframelyInput! @spread): JSON!
+  @deprecated(reason: "use signIframelySignature mutation")
+}

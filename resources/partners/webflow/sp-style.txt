@@ -1,0 +1,1 @@
+<script async type="module" src="https://script-providers-staging.storipress.workers.dev/client_id/storipress.mjs"></script>

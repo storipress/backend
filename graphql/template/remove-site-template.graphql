@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  remove all site template
+  """
+  removeSiteTemplate: Boolean!
+}

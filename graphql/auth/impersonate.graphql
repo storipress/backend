@@ -1,0 +1,9 @@
+extend type Mutation {
+  """
+  user impersonate
+  """
+  impersonate(
+    email: EmailString!
+    password: String!
+  ): String @rateLimiting(name: "user-impersonate")
+}

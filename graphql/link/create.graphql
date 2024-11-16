@@ -1,0 +1,25 @@
+input CreateLinkInput {
+  source: LinkSource!
+
+  value: String
+  @rules(apply: [
+    "url",
+  ])
+
+  target_type: LinkTarget
+  @rules(apply: [
+    "required_without:value",
+  ])
+
+  target_id: ID
+  @rules(apply: [
+    "required_without:value",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create a new link
+  """
+  createLink(input: CreateLinkInput! @spread): Link!
+}

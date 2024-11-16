@@ -1,0 +1,64 @@
+type Image {
+  """
+  identify token
+  """
+  token: String!
+
+  """
+  image url
+  """
+  url: String!
+
+  """
+  filename
+  """
+  name: String!
+
+  """
+  mime type
+  """
+  mime: String!
+
+  """
+  image size
+  """
+  size: Int!
+
+  """
+  image width
+  """
+  width: Int!
+
+  """
+  image height
+  """
+  height: Int!
+
+  """
+  image title
+  """
+  title: String
+
+  """
+  image caption
+  """
+  caption: String
+
+  """
+  image description
+  """
+  description: String
+
+  """
+  custom transformation
+  """
+  transformation: JSON
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  image info
+  """
+  image(key: ID!): Image!
+}
+

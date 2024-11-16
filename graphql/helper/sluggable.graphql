@@ -1,0 +1,6 @@
+extend type Mutation {
+  """
+  slug the provided value
+  """
+  sluggable(value: String!): String!
+}

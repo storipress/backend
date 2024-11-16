@@ -1,0 +1,17 @@
+input InitializeSiteInput {
+  publication: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+
+  desks: [String!]!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+}
+
+extend type Mutation @guard {
+  initializeSite(input: InitializeSiteInput! @spread): Site!
+}

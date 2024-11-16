@@ -1,0 +1,36 @@
+type Block {
+  """
+  block id
+  """
+  id: ID!
+
+  """
+  block uuid
+  """
+  uuid: String!
+
+  """
+  block create time
+  """
+  created_at: DateTime!
+
+  """
+  block last update time
+  """
+  updated_at: DateTime!
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  fetch blocks
+  """
+  blocks: [Block!]!
+  @paginate
+  @orderBy(column: "created_at", direction: ASC)
+
+  """
+  get specific block
+  """
+  block(id: ID! @eq): Block
+  @find
+}

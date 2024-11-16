@@ -1,0 +1,33 @@
+input UpdateRedirectionInput {
+  """
+  redirection id
+  """
+  id: ID!
+
+  """
+  redirection path
+  """
+  path: String!
+  @rules(apply: [
+    "required",
+    "max:190",
+  ])
+
+  """
+  redirection target
+  """
+  target: String!
+  @rules(apply: [
+    "required",
+    "max:190",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an existing redirection data
+  """
+  updateRedirection(
+    input: UpdateRedirectionInput! @spread
+  ): Redirection!
+}

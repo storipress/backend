@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  disconnect stripe connect
+  """
+  disconnectStripeConnect: Boolean!
+  @clearCacheQuery(group: "publication")
+}

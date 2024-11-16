@@ -1,0 +1,19 @@
+input UploadSubscriberAvatarInput {
+  """
+  image file
+  """
+  file: Upload!
+  @rules(apply: [
+    "required",
+    "mimetypes:image/*",
+    "max:20480", # 20MB
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  upload subscriber avatar
+  """
+  uploadSubscriberAvatar(input: UploadSubscriberAvatarInput! @spread): String!
+  @deprecated(reason: "use uploadImage instead")
+}

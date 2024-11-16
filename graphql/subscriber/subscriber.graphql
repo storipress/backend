@@ -1,0 +1,282 @@
+union SubscriberEventTargetUnion =
+    Article |
+    Page |
+    Desk |
+    User |
+    Subscriber |
+    Email
+
+type SubscriberEvent {
+    """
+    event id
+    """
+    id: ID!
+
+    """
+    event name,
+    e.g. email.opened
+    """
+    name: String!
+
+    """
+    event target
+    """
+    target: SubscriberEventTargetUnion @morphTo
+
+    """
+    event data
+    """
+    data: JSON
+
+    """
+    event occurred time
+    """
+    occurred_at: DateTime!
+}
+
+type SubscriptionPlan {
+    interval: String!
+
+    price: String!
+}
+
+type Subscriber @model(class: "\\App\\Models\\Tenants\\Subscriber") {
+    """
+    subscriber id
+    """
+    id: ID!
+
+    """
+    subscriber stripe customer id
+    """
+    customer_id: String @rename(attribute: "stripe_id")
+
+    """
+    subscriber email
+    """
+    email: EmailString!
+
+    """
+    indicate the subscriber email is bounced or not
+    """
+    bounced: Boolean!
+
+    """
+    subscriber email verified or not
+    """
+    verified: Boolean!
+
+    """
+    subscriber first name
+    """
+    first_name: String
+
+    """
+    subscriber last name
+    """
+    last_name: String
+
+    """
+    subscriber full name
+    """
+    full_name: String
+
+    """
+    subscriber avatar
+    """
+    avatar: String!
+
+    """
+    enable newsletter or not
+    """
+    newsletter: Boolean!
+
+    """
+    subscriber has active subscription or not
+    """
+    subscribed: Boolean!
+
+    """
+    subscriber subscription plan info
+    """
+    subscription: SubscriptionPlan
+
+    """
+    subscriber subscription type
+    """
+    subscription_type: SubscriptionType!
+
+    """
+    subscriber first paid time
+    """
+    first_paid_at: DateTime
+
+    """
+    subscriber card brand,
+    e.g. MasterCard
+    """
+    pm_type: String
+
+    """
+    subscriber card last 4 number
+    """
+    pm_last_four: String
+
+    """
+    subscriber card brand,
+    e.g. MasterCard
+    """
+    card_brand: String
+    @rename(attribute: "pm_type")
+    @deprecated(reason: "use pm_type")
+
+    """
+    subscriber card last 4 number
+    """
+    card_last_four: String
+    @rename(attribute: "pm_last_four")
+    @deprecated(reason: "use pm_last_four")
+
+    """
+    subscriber card expiration date
+    """
+    card_expiration: String
+    @deprecated
+
+    """
+    the time subscriber subscribed
+    """
+    subscribed_at: DateTime
+
+    """
+    next subscription renew time
+    """
+    renew_on: DateTime
+
+    """
+    current subscription canceled time
+    """
+    canceled_at: DateTime
+
+    """
+    current subscription expire time
+    """
+    expire_on: DateTime
+
+    """
+    subscriber signed up source
+    """
+    signed_up_source: String
+
+    """
+    subscriber paid up source
+    """
+    paid_up_source: String
+
+    """
+    revenue from the subscriber
+    """
+    revenue: String!
+
+    """
+    subscriber activity(percentage)
+    """
+    activity: Int!
+
+    """
+    subscriber events
+    """
+    events: [SubscriberEvent!]! @hasMany(type: PAGINATOR)
+
+    active_days_last_30: Int!
+
+    comments_total: Int!
+
+    comments_last_7: Int!
+
+    comments_last_30: Int!
+
+    shares_total: Int!
+
+    shares_last_7: Int!
+
+    shares_last_30: Int!
+
+    email_receives: Int!
+
+    email_opens_total: Int!
+
+    email_opens_last_7: Int!
+
+    email_opens_last_30: Int!
+
+    unique_email_opens_total: Int!
+
+    unique_email_opens_last_7: Int!
+
+    unique_email_opens_last_30: Int!
+
+    email_link_clicks_total: Int!
+
+    email_link_clicks_last_7: Int!
+
+    email_link_clicks_last_30: Int!
+
+    unique_email_link_clicks_total: Int!
+
+    unique_email_link_clicks_last_7: Int!
+
+    unique_email_link_clicks_last_30: Int!
+
+    article_views_total: Int!
+
+    article_views_last_7: Int!
+
+    article_views_last_30: Int!
+
+    unique_article_views_total: Int!
+
+    unique_article_views_last_7: Int!
+
+    unique_article_views_last_30: Int!
+
+    """
+    subscriber created time
+    """
+    created_at: DateTime!
+}
+
+extend type Query @tenantOnlyApi {
+    """
+    fetch subscribers
+    """
+    subscribers(
+      """
+      sort result by target fields
+      @deprecated(reason: "use searchSortBy instead")
+      """
+      sortBy: _ @orderBy(columns: ["activity", "subscribed_at", "created_at", "revenue"]) @deprecated(reason: "use searchSortBy instead")
+
+      """
+      sort search result by target fields
+      """
+      searchSortBy: _ @searchOrderBy(columns: ["email", "activity", "subscribed_at", "created_at", "revenue"])
+
+      """
+      search subscribers by email or name
+      """
+      search: String @search
+    ): [Subscriber!]!
+    @paginate
+    @guard
+
+    """
+    get specific subscriber
+    """
+    subscriber(id: ID! @eq): Subscriber @find @guard
+
+    """
+    get subscriber profile for current request user
+    """
+    subscriberProfile: Subscriber @guard
+}

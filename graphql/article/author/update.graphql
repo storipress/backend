@@ -1,0 +1,26 @@
+"""
+update article's author info form
+"""
+input UpdateArticleAuthorInput {
+  """
+  article id
+  """
+  id: ID!
+
+  """
+  user id(author id)
+  """
+  user_id: ID!
+  @rules(apply: [
+    "required",
+    "exists:users,id",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update article's author info
+  """
+  updateArticleAuthor(input: UpdateArticleAuthorInput! @spread): Article!
+  @clearCacheQuery(group: "article")
+}

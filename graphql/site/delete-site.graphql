@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  delete an existing publication
+  """
+  deleteSite(password: String!): Boolean!
+  @clearCacheQuery(group: "publication")
+}

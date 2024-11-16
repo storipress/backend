@@ -1,0 +1,24 @@
+input UploadAvatarInput {
+  """
+  user id
+  """
+  id: ID @deprecated(reason: "v2 is no longer needed")
+
+  """
+  image file
+  """
+  file: Upload!
+  @rules(apply: [
+    "required",
+    "mimetypes:image/*",
+    "max:20480", # 20MB
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update user avatar
+  """
+  uploadAvatar(input: UploadAvatarInput! @spread): String!
+  @deprecated(reason: "use uploadImage instead")
+}

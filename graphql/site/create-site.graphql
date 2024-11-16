@@ -1,0 +1,28 @@
+input CreateSiteInput {
+  """
+  publication name
+  """
+  name: String!
+
+  """
+  publication timezone
+  """
+  timezone: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "timezone",
+  ])
+
+  """
+  emails which will be invited to current publication
+  """
+  invites: [EmailString!]!
+}
+
+extend type Mutation @guard {
+  """
+  create new publication
+  """
+  createSite(input: CreateSiteInput! @spread): String!
+}

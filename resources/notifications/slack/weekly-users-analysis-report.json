@@ -1,0 +1,156 @@
+[
+  {
+    "type": "header",
+    "text": {
+      "type": "plain_text",
+      "text": "🌟 NORTH STAR ALERT 🤠 for week ending {date} 🌟",
+      "emoji": true
+    }
+  },
+  {
+    "type": "header",
+    "text": {
+      "type": "plain_text",
+      "text": ":star::sparkles: USER EXPERIENCE :star2::dizzy:"
+    }
+  },
+  {
+    "type": "section",
+    "fields": [
+      {
+        "type": "mrkdwn",
+        "text": "*Active Users: {active_users}*"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*{active_users_emoji} {active_users_diff} ({active_users_percentage}) last week*"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*Sessions / Active User: {sessions_per_user}*"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*{sessions_per_user_emoji} {sessions_per_user_diff} ({sessions_per_user_percentage}) last week*"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*Users Invited: {users_invited}*"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*{users_invited_emoji} {users_invited_diff} ({users_invited_percentage}) last week*"
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "text": {
+      "type": "plain_text",
+      "text": " "
+    }
+  },
+  {
+    "type": "divider"
+  },
+  {
+    "type": "header",
+    "text": {
+      "type": "plain_text",
+      "text": ":star::sparkles: CONTENT :star2::dizzy:"
+    }
+  },
+  {
+    "type": "section",
+    "fields": [
+      {
+        "type": "mrkdwn",
+        "text": "*New Drafts / Active Pub: {drafts_per_pub}*"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*{drafts_per_pub_emoji} {drafts_per_pub_diff} ({drafts_per_pub_percentage}) last week*"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*# Published / Active Pub: {published_per_pub}*"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*{published_per_pub_emoji} {published_per_pub_diff} ({published_per_pub_percentage}) last week*"
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "text": {
+      "type": "plain_text",
+      "text": " "
+    }
+  },
+  {
+    "type": "divider"
+  },
+  {
+    "type": "header",
+    "text": {
+      "type": "plain_text",
+      "text": ":star::sparkles: PAGEVIEWS :star2::dizzy:"
+    }
+  },
+  {
+    "type": "section",
+    "fields": [
+      {
+        "type": "mrkdwn",
+        "text": "*Weekly Pageviews: {weekly_pageviews}*"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*{weekly_pageviews_emoji} {weekly_pageviews_diff} ({weekly_pageviews_percentage}) last week*"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*Pageviews / Session: {pageviews_per_session}*"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*{pageviews_per_session_emoji} {pageviews_per_session_diff} ({pageviews_per_session_percentage}) last week*"
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "*Top performing pages:*"
+    }
+  },
+  {
+    "type": "context",
+    "elements": [
+      {
+        "type": "mrkdwn",
+        "text": "<{top1_url}|*{top1_title}*>, _{top1_visits} visits_"
+      }
+    ]
+  },
+  {
+    "type": "context",
+    "elements": [
+      {
+        "type": "mrkdwn",
+        "text": "<{top2_url}|*{top2_title}*>, _{top2_visits} visits_"
+      }
+    ]
+  },
+  {
+    "type": "context",
+    "elements": [
+      {
+        "type": "mrkdwn",
+        "text": "<{top3_url}|*{top3_title}*>, _{top3_visits} visits_"
+      }
+    ]
+  }
+]

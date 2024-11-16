@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  initiate OAuth for Webflow and return the redirect URL
+  """
+  connectWebflow: String!
+}

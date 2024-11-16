@@ -1,0 +1,26 @@
+input TrackSubscriberActivityInput {
+  anonymous_id: String
+
+  """
+  event name
+  """
+  name: String!
+
+  """
+  event data
+  """
+  data: JSON
+  @convertEmptyStringsToNull
+
+  """
+  target id
+  """
+  target_id: ID
+}
+
+extend type Mutation @tenantOnlyApi {
+  """
+  track subscriber activity
+  """
+  trackSubscriberActivity(input: TrackSubscriberActivityInput! @spread): Boolean!
+}

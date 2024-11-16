@@ -1,0 +1,40 @@
+input CreateLinterInput {
+  """
+  linter title
+  """
+  title: String!
+  @rules(apply: [
+    "required",
+    "string",
+    "max:200",
+  ])
+
+  """
+  linter description
+  """
+  description: String
+  @rules(apply: [
+    "nullable",
+    "string",
+    "max:200",
+  ])
+
+  """
+  linter prompt
+  """
+  prompt: String!
+  @rules(apply: [
+    "required",
+    "string",
+    "max:200",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create a new linter
+  """
+  createLinter(
+    input: CreateLinterInput! @spread
+  ): Linter!
+}

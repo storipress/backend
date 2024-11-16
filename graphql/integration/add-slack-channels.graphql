@@ -1,0 +1,18 @@
+input AddSlackChannelsInput {
+  """
+  notify condition
+  """
+  key: ID!
+
+  """
+  notify channels
+  """
+  channels: [String!]!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  add a slack channel as a notification channel for article updates
+  """
+  addSlackChannels(input: AddSlackChannelsInput! @spread): Integration!
+}

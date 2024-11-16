@@ -1,0 +1,295 @@
+type EmailDNSRecord {
+  hostname: String!
+
+  type: String!
+
+  value: String!
+}
+
+"""
+publication
+"""
+type Site {
+  """
+  publication id
+  """
+  id: ID!
+
+  """
+  publication enabled or not
+  """
+  enabled: Boolean!
+
+  """
+  publication subscription plan:
+  - free
+  - blogger(stripe)
+  - publisher(stripe)
+  - enterprise(stripe)
+  - storipress_tier1(appsumo)
+  - storipress_tier2(appsumo)
+  - storipress_tier3(appsumo)
+  - storipress_bf_tier1(appsumo)
+  - storipress_bf_tier2(appsumo)
+  - storipress_bf_tier3(appsumo)
+  """
+  plan: String!
+
+  has_prophet: Boolean!
+
+  """
+  publication name
+  """
+  name: String!
+
+  """
+  publication description
+  """
+  description: String
+
+  """
+  publication email
+  """
+  email: EmailString
+
+  """
+  publication timezone
+  """
+  timezone: String!
+
+  """
+  RFC 5646 Language Tags
+  """
+  lang: String!
+
+  """
+  publication favicon, base64 type
+  """
+  favicon: String
+
+  """
+  social network links
+  """
+  socials: JSON
+
+  """
+  publication storipress domain prefix,
+  e.g. {workspace}.storipress.app
+  """
+  workspace: String!
+
+  """
+  publication custom domain
+  """
+  custom_domain: String
+
+  """
+  site custom domain
+  """
+  site_domain: String
+
+  """
+  mail custom domain
+  """
+  mail_domain: String
+
+  """
+  static site url structures
+  """
+  permalinks: JSON
+
+  """
+  customized sitemap
+  """
+  sitemap: JSON
+
+  """
+  main hosting site
+  """
+  hosting: SiteHosting
+
+  """
+  built-in desks' names alias
+  """
+  desk_alias: JSON
+
+  """
+  generator configurations
+  """
+  buildx: JSON
+
+  """
+  leaky paywall configurations
+  """
+  paywall_config: JSON
+
+  """
+  prophet configurations
+  """
+  prophet_config: JSON
+
+  """
+  publication customer site domain
+  e.g. hello.storipress.app, example.com
+  """
+  customer_site_domain: String!
+  @rename(attribute: "url")
+
+  """
+  publication customer site storipress domain
+  e.g. hello.storipress.app
+  """
+  customer_site_storipress_url: String!
+
+  """
+  configuration for custom domain email
+  """
+  custom_domain_email: [EmailDNSRecord!]!
+
+  """
+  publication initialized or not
+  """
+  initialized: Boolean!
+
+  """
+  publication tutorial history
+  """
+  tutorials: JSON
+
+  """
+  publication logo image
+  """
+  logo: Image @morphOne
+
+  """
+  subscription setup status
+  """
+  subscription_setup: SubscriptionSetup!
+
+  """
+  subscription setup has done once
+  """
+  subscription_setup_done: Boolean!
+
+  """
+  enable newsletter or not
+  """
+  newsletter: Boolean!
+
+  """
+  enable subscription or not
+  """
+  subscription: Boolean!
+
+  """
+  subscription panel background color
+  """
+  accent_color: String
+
+  """
+  subscription currency
+  """
+  currency: String
+
+  """
+  subscription monthly price
+  """
+  monthly_price: String
+
+  """
+  subscription yearly price
+  """
+  yearly_price: String
+
+  metafields: [CustomField!]!
+
+  """
+  enable custom site template or not
+  """
+  custom_site_template: Boolean!
+
+  """
+  newstand api key
+  """
+  newstand_key: String
+
+  """
+  the search only key for typesense
+  """
+  typesense_search_only_key: String!
+}
+
+type SiteSubscriptionInfo {
+  """
+  publication name
+  """
+  name: String!
+
+  """
+  publication description
+  """
+  description: String
+
+  """
+  publication logo image
+  """
+  logo: Image
+
+  """
+  leaky paywall configurations
+  """
+  paywall_config: JSON
+
+  """
+  publication support email
+  """
+  email: EmailString
+
+  """
+  publication has enabled subscription or not
+  """
+  subscription: Boolean!
+
+  """
+  publication has enabled newsletter or not
+  """
+  newsletter: Boolean!
+
+  """
+  subscription monthly price
+  """
+  monthly_price: String
+
+  """
+  price_id for the monthly plan
+  """
+  monthly_price_id: String
+
+  """
+  subscription yearly price
+  """
+  yearly_price: String
+
+  """
+  price_id for the yearly plan
+  """
+  yearly_price_id: String
+
+  """
+  stripe account id
+  """
+  stripe_account_id: String
+}
+
+extend type Query @tenantOnlyApi {
+  """
+  get publication data
+  """
+  site: Site!
+  @guard
+
+  """
+  get publication subscription info
+  """
+  siteSubscriptionInfo: SiteSubscriptionInfo!
+}

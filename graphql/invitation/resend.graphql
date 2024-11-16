@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  resend an invitation email
+  """
+  resendInvitation(id: ID!): Invitation!
+  @clearCacheQuery(group: "invitation")
+}

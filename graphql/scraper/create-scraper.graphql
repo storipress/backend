@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create new scraper
+  """
+  createScraper: String!
+  @clearCacheQuery(group: "scraper")
+}

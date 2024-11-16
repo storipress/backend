@@ -1,0 +1,23 @@
+input ChangeArticleStageInput {
+  """
+  article id
+  """
+  id: ID!
+
+  """
+  stage id
+  """
+  stage_id: ID!
+  @rules(apply: [
+    "required",
+    "exists:stages,id,deleted_at,NULL",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  change article stage
+  """
+  changeArticleStage(input: ChangeArticleStageInput! @spread): Article!
+  @clearCacheQuery(group: "article")
+}

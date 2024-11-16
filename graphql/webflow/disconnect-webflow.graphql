@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  disconnect Webflow integration
+  """
+  disconnectWebflow: Boolean!
+}

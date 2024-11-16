@@ -1,0 +1,23 @@
+input MoveArticleToDeskInput {
+  """
+  article id
+  """
+  id: ID!
+
+  """
+  desk id
+  """
+  desk_id: ID!
+  @rules(apply: [
+    "required",
+    "exists:desks,id,deleted_at,NULL",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  move article to another desk
+  """
+  moveArticleToDesk(input: MoveArticleToDeskInput! @spread): Article!
+  @clearCacheQuery(group: "article")
+}

@@ -1,0 +1,67 @@
+"A date string with the format `YYYY-MM-DD`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"""
+"A datetime string with the format YYYY-MM-DD\TH:i:s.uP,
+e.g. 2020-04-20T16:20:04+04:00, 2020-04-20T16:20:04Z."
+"""
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
+
+"A RFC 5321 compliant email string."
+scalar EmailString @scalar(class: "MLL\\GraphQLScalars\\Email")
+
+"JavaScript Object Notation."
+scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
+
+"Can be used as an argument to upload files using https://github.com/jaydenseric/graphql-multipart-request-spec"
+scalar Upload @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
+
+#import account/*.graphql
+#import article/*.graphql
+#import article/author/*.graphql
+#import article/tag/*.graphql
+#import article/thread/*.graphql
+#import article/thread/note/*.graphql
+#import auth/*.graphql
+#import billing/*.graphql
+#import block/*.graphql
+#import credit/*.graphql
+#import custom-field/*.graphql
+#import custom-field-group/*.graphql
+#import custom-field-value/*.graphql
+#import design/*.graphql
+#import desk/*.graphql
+#import email/*.graphql
+#import facebook/*.graphql
+#import generator/*.graphql
+#import helper/*.graphql
+#import iframely/*.graphql
+#import image/*.graphql
+#import integration/*.graphql
+#import invitation/*.graphql
+#import layout/*.graphql
+#import link/*.graphql
+#import linter/*.graphql
+#import notification/*.graphql
+#import packages/*.graphql
+#import page/*.graphql
+#import paragon/*.graphql
+#import prophet/*.graphql
+#import redirection/*.graphql
+#import release/*.graphql
+#import revert/*.graphql
+#import role/*.graphql
+#import scraper/*.graphql
+#import shopify/*.graphql
+#import site/*.graphql
+#import stage/*.graphql
+#import subscriber/*.graphql
+#import subscription/*.graphql
+#import sync/*.graphql
+#import tag/*.graphql
+#import template/*.graphql
+#import unsplash/*.graphql
+#import upload/*.graphql
+#import user/*.graphql
+#import webflow/*.graphql
+#import wordpress/*.graphql

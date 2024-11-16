@@ -1,0 +1,26 @@
+"""
+add author to article form
+"""
+input AddAuthorToArticleInput {
+  """
+  article id
+  """
+  id: ID!
+
+  """
+  user id(author id)
+  """
+  user_id: ID!
+  @rules(apply: [
+    "required",
+    "exists:users,id",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  add author to article
+  """
+  addAuthorToArticle(input: AddAuthorToArticleInput! @spread): Article!
+  @clearCacheQuery(group: "article")
+}

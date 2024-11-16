@@ -1,0 +1,94 @@
+type ProphetDashboardData {
+  article_avg_scrolled: Float!
+
+  article_read: Int
+
+  article_unique_read: Int
+
+  article_viewed: Int!
+
+  article_unique_viewed: Int!
+
+  email_collected: Int!
+
+  email_collected_ratio: Float!
+
+  email_sent: Int
+
+  email_replied: Int
+
+  email_replied_ratio: Float
+}
+
+type ProphetMonthOnMonth {
+  year: Int!
+
+  month: Int!
+
+  data: ProphetDashboardData
+}
+
+type ProphetDashboardChart {
+  data: ProphetDashboardData!
+
+  date: Date!
+}
+
+type ProphetArticleStatisticData {
+  avg_scrolled: Float!
+
+  read: Int
+
+  unique_read: Int
+
+  viewed: Int!
+
+  unique_viewed: Int
+
+  email_collected: Int!
+
+  email_collected_ratio: Float!
+}
+
+type ProphetArticleStatistic {
+  article: Article! @belongsTo
+
+  data: ProphetArticleStatisticData!
+}
+
+enum ProphetArticleStatisticSortBy {
+  "None"
+  none
+
+  "Scroll Depth"
+  scroll_depth
+
+  "Reads"
+  reads
+
+  "Emails collected"
+  emails_collected
+
+  "Email submit %"
+  email_submit
+}
+
+extend type Query @tenantOnlyApi @guard {
+    """
+    prophet month on month info
+    """
+    prophetMonthOnMonth: [ProphetMonthOnMonth!]!
+
+    """
+    prophet dashboard chart data points
+    """
+    prophetDashboardChart: [ProphetDashboardChart!]!
+
+    """
+    prophet article statistics
+    """
+    prophetArticleStatistics(
+      sort_by: ProphetArticleStatisticSortBy! = none
+      desc: Boolean! = true
+    ): [ProphetArticleStatistic!]!
+}

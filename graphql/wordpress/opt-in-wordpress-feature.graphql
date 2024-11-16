@@ -1,0 +1,13 @@
+input OptInWordPressFeatureInput {
+  """
+  feature Type
+  """
+  key: WordPressOptionalFeatureType!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  opt in the WordPress feature
+  """
+  optInWordPressFeature(input: OptInWordPressFeatureInput! @spread): Boolean!
+}

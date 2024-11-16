@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  launch publication subscription
+  """
+  launchSubscription: Site!
+  @clearCacheQuery(group: "publication")
+}

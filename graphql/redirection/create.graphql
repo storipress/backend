@@ -1,0 +1,28 @@
+input CreateRedirectionInput {
+  """
+  path
+  """
+  path: String!
+  @rules(apply: [
+    "required",
+    "max:190",
+  ])
+
+  """
+  target
+  """
+  target: String!
+  @rules(apply: [
+    "required",
+    "max:190",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create a new redirection
+  """
+  createRedirection(
+    input: CreateRedirectionInput! @spread
+  ): Redirection!
+}

@@ -1,0 +1,55 @@
+input CreateArticleInput {
+  """
+  article title
+  """
+  title: String
+  @rules(apply: [
+    "string",
+    "nullable",
+  ])
+  @convertEmptyStringsToNull
+
+  """
+  article description
+  """
+  blurb: String
+  @rules(apply: [
+    "string",
+    "nullable",
+  ])
+  @convertEmptyStringsToNull
+
+  """
+  article published_at
+  """
+  published_at: DateTime
+  @rules(apply: [
+    "date",
+    "nullable",
+  ])
+
+  """
+  desk id
+  """
+  desk_id: ID!
+  @rules(apply: [
+    "required",
+    "exists:desks,id,deleted_at,NULL",
+  ])
+
+  """
+  author ids(user id)
+  """
+  author_ids: [ID!]
+  @rules(apply: [
+    "sometimes",
+    "exists:users,id",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create article
+  """
+  createArticle(input: CreateArticleInput! @spread): Article!
+}

@@ -1,0 +1,26 @@
+type Invitation {
+  """
+  invitation id
+  """
+  id: String!
+
+  """
+  email
+  """
+  email: String!
+
+  """
+  role
+  """
+  role: String!
+
+  """
+  desks belongs to the user
+  """
+  desks: [Desk!]! @belongsToMany
+}
+
+extend type Query @tenantOnlyApi {
+  invitations: [Invitation!]!
+  @all
+}

@@ -1,0 +1,22 @@
+input EnableCustomDomainInput {
+  """
+  domain name,
+  e.g. example.com
+  """
+  value: String!
+  @rules(apply: [
+    "required",
+    "string",
+    "is_domain_name",
+    "regex:/^(?:[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?\\.)+[a-z]{2,23}$/isu",
+    "unique:App\\Models\\Tenant,custom_domain",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  enable custom domain
+  """
+  enableCustomDomain(input: EnableCustomDomainInput! @spread): Site!
+  @clearCacheQuery(group: "publication")
+}

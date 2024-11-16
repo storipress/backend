@@ -1,0 +1,68 @@
+input UpdateArticleInput @validator {
+  """
+  article id
+  """
+  id: ID!
+
+  title: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+  ])
+
+  slug: String
+  @transformSlug
+
+  blurb: String
+  @rules(apply: [
+    "nullable",
+    "string",
+  ])
+
+  featured: Boolean
+  @rules(apply: [
+    "boolean",
+  ])
+
+  document: JSON
+  @rules(apply: [
+    "nullable",
+  ])
+
+  cover: JSON
+  @rules(apply: [
+    "nullable",
+  ])
+
+  seo: JSON
+  @rules(apply: [
+    "nullable",
+  ])
+
+  auto_posting: JSON
+  @rules(apply: [
+    "nullable",
+  ])
+
+  plan: ArticlePlan
+
+  newsletter: Boolean
+  @rules(apply: [
+    "boolean",
+  ])
+
+  layout_id: ID
+  @rules(apply: [
+    "nullable",
+    "exists:layouts,id,deleted_at,NULL",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an article data
+  """
+  updateArticle(input: UpdateArticleInput! @spread): Article!
+  @clearCacheQuery(group: "article")
+}

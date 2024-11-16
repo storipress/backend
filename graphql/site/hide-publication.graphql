@@ -1,0 +1,6 @@
+extend type Mutation @guard {
+  """
+  user hide current request publication
+  """
+  hidePublication(id: ID!): Boolean!
+}

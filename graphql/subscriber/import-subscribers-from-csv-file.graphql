@@ -1,0 +1,29 @@
+input ImportSubscribersFromCsvFileInput {
+  """
+  csv file
+  """
+  file: Upload
+  @rules(apply: [
+    "required",
+    "file",
+    "max:32768",
+  ])
+  @deprecated(reason: "use key and signature")
+
+  """
+  presigned upload url key
+  """
+  key: ID
+
+  """
+  signature of the request
+  """
+  signature: String
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  import subscriber from csv file
+  """
+  importSubscribersFromCsvFile(input: ImportSubscribersFromCsvFileInput! @spread): Boolean!
+}

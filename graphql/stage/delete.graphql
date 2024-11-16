@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  delete a stage
+  """
+  deleteStage(id: ID!): Stage!
+  @clearCacheQuery(group: "stage")
+}

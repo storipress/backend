@@ -1,0 +1,18 @@
+input MoveDeskBeforeInput {
+  """
+  desk id
+  """
+  id: ID!
+
+  """
+  target desk id
+  """
+  target_id: ID!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  move desk order before target desk id
+  """
+  moveDeskBefore(input: MoveDeskBeforeInput! @spread): Desk!
+}

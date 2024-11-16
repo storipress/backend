@@ -1,0 +1,18 @@
+input MoveArticleAfterInput {
+  """
+  article id
+  """
+  id: ID!
+
+  """
+  target article id
+  """
+  target_id: ID!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  move article order after target article id
+  """
+  moveArticleAfter(input: MoveArticleAfterInput! @spread): Boolean!
+}

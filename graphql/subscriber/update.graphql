@@ -1,0 +1,43 @@
+input UpdateSubscriberInput {
+  """
+  subscriber email
+  """
+  email: EmailString
+  @central
+  @rules(apply: [
+    "email:rfc,strict,dns,spoof",
+    "unique:subscribers,email",
+  ])
+
+  """
+  subscriber first name
+  """
+  first_name: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+  ])
+
+  """
+  subscriber last name
+  """
+  last_name: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+  ])
+
+  """
+  enable newsletter or not
+  """
+  newsletter: Boolean
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an existing subscriber data
+  """
+  updateSubscriber(input: UpdateSubscriberInput! @spread): Subscriber!
+}

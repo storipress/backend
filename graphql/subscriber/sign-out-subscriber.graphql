@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  sign out of the customer site
+  """
+  signOutSubscriber: Boolean!
+}

@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  enable newsletter for target subscribers
+  """
+  subscribeSubscribers(ids: [ID!]!): Boolean!
+}

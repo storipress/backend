@@ -1,0 +1,15 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  generate Paragon auth token
+  """
+  generateParagonToken: String!
+
+  disconnectParagon: Boolean!
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  whether the Gmail OAuth has been completed or not
+  """
+  gmailAuthorized: Boolean!
+}

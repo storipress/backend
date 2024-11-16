@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  delete a user
+  """
+  deleteUser(id: ID!): User!
+  @clearCacheQuery(group: "user")
+}

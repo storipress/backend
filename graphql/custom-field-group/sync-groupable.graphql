@@ -1,0 +1,24 @@
+input SyncGroupableToCustomFieldGroupInput {
+  """
+  custom field group id
+  """
+  id: ID!
+
+  """
+  target ids(tags, desks, ...)
+  """
+  target_ids: [ID!]!
+
+  """
+  remove existing ids that aren't present in the target_ids input(default: true)
+  """
+  detaching: Boolean = true
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  sync target model to custom field group
+  """
+  syncGroupableToCustomFieldGroup(input: SyncGroupableToCustomFieldGroupInput! @spread): CustomFieldGroup!
+  @clearCacheQuery(group: "custom-field-group")
+}

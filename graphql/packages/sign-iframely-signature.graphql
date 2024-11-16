@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  sign an iframely request
+  """
+  signIframelySignature(params: JSON!): String!
+}

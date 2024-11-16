@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  delete a tag
+  """
+  deleteTag(id: ID!): Tag!
+  @clearCacheQuery(group: "tag")
+}

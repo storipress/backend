@@ -1,0 +1,38 @@
+input UpdateLayoutInput {
+  """
+  layout id
+  """
+  id: ID!
+
+  """
+  layout name
+  """
+  name: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+  ])
+
+  """
+  template id
+  """
+  template: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+  ])
+
+  """
+  layout data
+  """
+  data: JSON
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an existing layout data
+  """
+  updateLayout(input: UpdateLayoutInput! @spread): Layout!
+  @clearCacheQuery(group: "layout")
+}

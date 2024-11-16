@@ -1,0 +1,23 @@
+type Redirection {
+  """
+  redirection id
+  """
+  id: ID!
+
+  """
+  redirection path
+  """
+  path: String!
+
+  """
+  redirection target
+  """
+  target: String!
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  fetch redirections
+  """
+  redirections: [Redirection!]!
+}

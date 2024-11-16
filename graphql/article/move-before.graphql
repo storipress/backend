@@ -1,0 +1,18 @@
+input MoveArticleBeforeInput {
+  """
+  article id
+  """
+  id: ID!
+
+  """
+  target article id
+  """
+  target_id: ID!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  move article order before target article id
+  """
+  moveArticleBefore(input: MoveArticleBeforeInput! @spread): Boolean!
+}

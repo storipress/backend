@@ -1,0 +1,31 @@
+input CreateBlockInput {
+  """
+  block archive file
+  """
+  file: Upload
+  @rules(apply: [
+    "required",
+    "file",
+    "mimetypes:application/zip,application/gzip",
+    "max:20480", # 20MB
+  ])
+  @deprecated(reason: "use key and signature")
+
+  """
+  presigned upload url key
+  """
+  key: ID
+
+  """
+  signature of the request
+  """
+  signature: String
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create a new custom editor block
+  """
+  createBlock(input: CreateBlockInput! @spread): Block!
+  @clearCacheQuery(group: "block")
+}

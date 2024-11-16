@@ -1,0 +1,30 @@
+input UpdateTagInput {
+  """
+  tag id
+  """
+  id: ID!
+
+  """
+  tag name
+  """
+  name: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+    "max: 255",
+  ])
+
+  """
+  tag description
+  """
+  description: String
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an existing tag data
+  """
+  updateTag(input: UpdateTagInput! @spread): Tag!
+  @clearCacheQuery(group: "tag")
+}

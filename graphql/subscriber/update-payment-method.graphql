@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update subscriber payment method
+  """
+  updatePaymentMethod(pm_id: String!): Boolean!
+}

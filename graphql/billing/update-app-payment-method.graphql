@@ -1,0 +1,14 @@
+input UpdateAppPaymentMethodInput {
+  token: String!
+  @rules(apply: [
+    "required",
+  ])
+
+  country: String
+
+  postal_code: String
+}
+
+extend type Mutation @guard {
+  updateAppPaymentMethod(input: UpdateAppPaymentMethodInput @spread): Boolean!
+}

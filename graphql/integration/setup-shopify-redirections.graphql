@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  setup shopify redirections
+  """
+  setupShopifyRedirections: Boolean!
+}

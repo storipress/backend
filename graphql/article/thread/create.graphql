@@ -1,0 +1,25 @@
+input CreateArticleThreadInput {
+  """
+  article id
+  """
+  article_id: ID!
+  @rules(apply: [
+    "required",
+  ])
+
+  """
+  position in article document
+  """
+  position: JSON!
+  @rules(apply: [
+    "required",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create article's thread
+  """
+  createArticleThread(input: CreateArticleThreadInput! @spread): ArticleThread!
+  @clearCacheQuery(group: "article")
+}

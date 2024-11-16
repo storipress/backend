@@ -1,0 +1,34 @@
+input UpdateWebflowCollectionMappingValueInput {
+  webflow_id: ID!
+  @rules(apply: [
+    "required",
+  ])
+
+  storipress_id: String!
+  @rules(apply: [
+    "required",
+  ])
+}
+
+input UpdateWebflowCollectionMappingInput {
+  """
+  collection type
+  """
+  type: WebflowCollectionType!
+
+  """
+  collection id
+  """
+  value: [UpdateWebflowCollectionMappingValueInput!]!
+  @rules(apply: [
+    "required",
+    "array",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update Webflow collection mapping
+  """
+  updateWebflowCollectionMapping(input: UpdateWebflowCollectionMappingInput! @spread): Boolean!
+}

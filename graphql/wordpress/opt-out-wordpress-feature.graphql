@@ -1,0 +1,13 @@
+input OptOutWordPressFeatureInput {
+  """
+  feature Type
+  """
+  key: WordPressOptionalFeatureType!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  opt out the WordPress feature
+  """
+  optOutWordPressFeature(input: OptOutWordPressFeatureInput! @spread): Boolean!
+}

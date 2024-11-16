@@ -1,0 +1,40 @@
+type Media {
+  key: ID! @rename(attribute: "token")
+
+  """
+  media url
+  """
+  url: String!
+
+  """
+  media mime type
+  """
+  mime: String!
+
+  """
+  media size
+  """
+  size: Int!
+
+  """
+  media width
+  """
+  width: Int!
+
+  """
+  media height
+  """
+  height: Int!
+
+  """
+  image blurhash value
+  """
+  blurhash: String
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  media info
+  """
+  media(key: ID!): Media!
+}

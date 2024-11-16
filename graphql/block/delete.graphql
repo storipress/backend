@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  delete custom block
+  """
+  deleteBlock(id: ID!): Block!
+  @clearCacheQuery(group: "block")
+}

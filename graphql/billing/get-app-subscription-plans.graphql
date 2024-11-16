@@ -1,0 +1,44 @@
+type AppSubscriptionPlans {
+  """
+  price id, use in price_id field when calling
+  createAppSubscription or updateAppSubscription
+  """
+  id: ID!
+
+  """
+  plan group,
+  possible values: blogger, publisher
+  """
+  group: String!
+
+  """
+  price currency
+  """
+  currency: String!
+
+  """
+  price value, string type of integer with two decimal points,
+  e.g. 1800 means $18.00
+  """
+  price: String!
+
+  """
+  billing period type,
+  possible values: month, year
+  """
+  interval: String!
+
+  """
+  billing period value
+  """
+  interval_count: Int!
+
+  """
+  possible values: licensed, metered
+  """
+  usage_type: String!
+}
+
+extend type Query @guard {
+  appSubscriptionPlans: [AppSubscriptionPlans!]!
+}

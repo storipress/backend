@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  disconnect HubSpot integration
+  """
+  disconnectHubSpot: Boolean!
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "{authors}'s article <{url}|*{title}*> has been published!"
+    }
+  },
+  {
+    "type": "image",
+    "image_url": "{image}",
+    "alt_text": "inspiration"
+  }
+]

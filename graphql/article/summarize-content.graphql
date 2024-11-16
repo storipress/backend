@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  summarize article
+  """
+  summarizeArticleContent(id: ID!): String!
+}

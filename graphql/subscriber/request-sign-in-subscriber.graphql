@@ -1,0 +1,31 @@
+input RequestSignInSubscriberInput {
+  """
+  subscriber email
+  """
+  email: EmailString!
+
+  """
+  http referer
+  """
+  referer: String!
+  @rules(apply: [
+    "required",
+    "active_url",
+  ])
+
+  """
+  current url, used for redirect back
+  """
+  from: String!
+  @rules(apply: [
+    "required",
+    "active_url",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi {
+  """
+  request a sign in to customer site
+  """
+  requestSignInSubscriber(input: RequestSignInSubscriberInput! @spread): Boolean! @rateLimiting(name: "subscriber-sign-in")
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "*{name}* moved article <{url}|*{title}*> to *{stage}*."
+    }
+  },
+  {
+    "type": "context",
+    "elements": [
+      {
+        "type": "mrkdwn",
+        "text": "*Desk: {desk}*"
+      },
+      {
+        "type": "plain_text",
+        "text": "Author(s): {authors}"
+      }
+    ]
+  },
+  {
+    "type": "divider"
+  },
+  {
+    "type": "context",
+    "elements": [
+      {
+        "type": "plain_text",
+        "text": "The Editor(s) for this article left the following note:",
+        "emoji": true
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "{note}"
+    }
+  }
+]

@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  initiate OAuth for HubSpot and return the redirect URL
+  """
+  connectHubSpot: String!
+}

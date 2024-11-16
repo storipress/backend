@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  export subscribers to csv string
+  """
+  exportSubscribers: String!
+}

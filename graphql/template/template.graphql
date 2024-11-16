@@ -1,0 +1,36 @@
+type SiteTemplate {
+  """
+  site template key
+  """
+  key: ID!
+
+  """
+  site template type
+  """
+  type: TemplateType!
+
+  """
+  site template url
+  """
+  url: String!
+
+  """
+  site template name
+  """
+  name: String
+
+  """
+  site template description
+  """
+  description: String
+}
+
+extend type Query @tenantOnlyApi @guard {
+  siteTemplates(
+    type: TemplateType @eq
+  ): [SiteTemplate!]!
+  @all(
+    model: "\\App\\Models\\Tenants\\Template"
+    scopes: ["siteTemplate"]
+  )
+}

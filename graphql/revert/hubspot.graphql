@@ -1,0 +1,18 @@
+type HubSpotInfo {
+  """
+  whether the integration is activated or not
+  """
+  activated_at: DateTime
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  whether the HubSpot OAuth has been completed or not
+  """
+  hubSpotAuthorized: Boolean!
+
+  """
+  get HubSpot information
+  """
+  hubSpotInfo: HubSpotInfo!
+}

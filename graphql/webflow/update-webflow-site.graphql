@@ -1,0 +1,17 @@
+input UpdateWebflowSiteInput {
+  """
+  site id
+  """
+  value: ID!
+  @rules(apply: [
+    "required",
+  ])
+}
+
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update Webflow site id
+  """
+  updateWebflowSite(input: UpdateWebflowSiteInput! @spread): Boolean!
+}

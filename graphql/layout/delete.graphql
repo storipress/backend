@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  delete a layout
+  """
+  deleteLayout(id: ID!): Layout!
+  @clearCacheQuery(group: "layout")
+}

@@ -1,0 +1,38 @@
+input UpdateCustomFieldInput @validator {
+  """
+  custom field id
+  """
+  id: ID!
+
+  """
+  custom field key
+  """
+  key: String
+  # this field is validated by the validator
+
+  """
+  custom field name
+  """
+  name: String
+  @rules(apply: [
+    "max:200",
+  ])
+
+  description: String @convertEmptyStringsToNull
+  @rules(apply: [
+    "max:2000",
+  ])
+
+  """
+  custom field options
+  """
+  options: JSON
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an existing custom field data
+  """
+  updateCustomField(input: UpdateCustomFieldInput! @spread): CustomField!
+  @clearCacheQuery(group: "custom-field")
+}

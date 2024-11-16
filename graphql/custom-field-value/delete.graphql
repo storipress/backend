@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  delete a custom field value
+  """
+  deleteCustomFieldValue(id: ID!): CustomFieldValue!
+}

@@ -1,0 +1,25 @@
+grumphp:
+  ascii: ~
+  stop_on_failure: true
+  process_timeout: 180
+  parallel:
+    enabled: false
+  tasks:
+    composer:
+      strict: true
+      metadata:
+        priority: 10
+    composer_normalize:
+      verbose: true
+      metadata:
+        priority: 10
+    shell:
+      scripts:
+        - ["-c", "vendor/bin/pint --test"]
+      metadata:
+        label: "pint"
+        priority: 5
+    phpstan:
+      memory_limit: "-1"
+      metadata:
+        priority: 1

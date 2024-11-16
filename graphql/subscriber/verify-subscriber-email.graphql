@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  verify subscriber email
+  """
+  verifySubscriberEmail(token: String!): Boolean!
+}

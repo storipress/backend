@@ -1,0 +1,177 @@
+type CustomFieldTextOptions {
+  type: CustomFieldType!
+
+  required: Boolean
+
+  repeat: Boolean
+
+  placeholder: String
+
+  multiline: Boolean
+
+  min: Int
+
+  max: Int
+
+  regex: String
+}
+
+type CustomFieldNumberOptions {
+  type: CustomFieldType!
+
+  required: Boolean
+
+  repeat: Boolean
+
+  placeholder: String
+
+  float: Boolean
+
+  min: Float
+
+  max: Float
+}
+
+type CustomFieldColorOptions {
+  type: CustomFieldType!
+
+  required: Boolean
+
+  repeat: Boolean
+
+  placeholder: String
+}
+
+type CustomFieldUrlOptions {
+  type: CustomFieldType!
+
+  required: Boolean
+
+  repeat: Boolean
+
+  placeholder: String
+}
+
+type CustomFieldBooleanOptions {
+  type: CustomFieldType!
+
+  required: Boolean
+
+  repeat: Boolean
+
+  placeholder: String
+}
+
+type CustomFieldSelectOptions {
+  type: CustomFieldType!
+
+  required: Boolean
+
+  repeat: Boolean
+
+  placeholder: String
+
+  choices: Mixed
+
+  multiple: Boolean
+}
+
+type CustomFieldRichTextOptions {
+  type: CustomFieldType!
+
+  required: Boolean
+
+  repeat: Boolean
+
+  placeholder: String
+}
+
+type CustomFieldFileOptions {
+  type: CustomFieldType!
+
+  required: Boolean
+
+  repeat: Boolean
+
+  placeholder: String
+}
+
+type CustomFieldDateOptions {
+  type: CustomFieldType!
+
+  required: Boolean
+
+  repeat: Boolean
+
+  placeholder: String
+
+  time: Boolean
+}
+
+type CustomFieldJsonOptions {
+  type: CustomFieldType!
+
+  required: Boolean
+
+  repeat: Boolean
+
+  placeholder: String
+}
+
+type CustomFieldReferenceOptions {
+  type: CustomFieldType!
+
+  required: Boolean
+
+  repeat: Boolean
+
+  placeholder: String
+
+  target: CustomFieldReferenceTarget
+
+  multiple: Boolean
+
+  collection_id: String
+}
+
+type CustomFieldIgnoreOptions {
+  type: CustomFieldType!
+
+  required: Boolean
+
+  repeat: Boolean
+
+  placeholder: String
+}
+
+union CustomFieldOptions =
+  CustomFieldTextOptions |
+  CustomFieldNumberOptions |
+  CustomFieldColorOptions |
+  CustomFieldUrlOptions |
+  CustomFieldBooleanOptions |
+  CustomFieldSelectOptions |
+  CustomFieldRichTextOptions |
+  CustomFieldFileOptions |
+  CustomFieldDateOptions |
+  CustomFieldJsonOptions |
+  CustomFieldReferenceOptions |
+  CustomFieldIgnoreOptions
+
+type CustomField {
+  id: ID!
+
+  key: ID!
+
+  type: CustomFieldType!
+
+  name: String!
+
+  description: String
+
+  options: CustomFieldOptions
+
+  values: [CustomFieldValue!]!
+
+  group: CustomFieldGroup! @belongsTo
+}
