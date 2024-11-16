@@ -1,0 +1,35 @@
+input SignUpSubscriberInput {
+  """
+  subscriber email
+  """
+  email: EmailString!
+  @rules(apply: [
+    "required",
+    "email:rfc,strict,dns,spoof",
+  ])
+
+  """
+  http referer
+  """
+  referer: String!
+  @rules(apply: [
+    "required",
+    "active_url",
+  ])
+
+  """
+  current url, used for redirect back
+  """
+  from: String!
+  @rules(apply: [
+    "required",
+    "active_url",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi {
+  """
+  sign up to customer site
+  """
+  signUpSubscriber(input: SignUpSubscriberInput! @spread): String! @rateLimiting(name: "subscriber-sign-up")
+}

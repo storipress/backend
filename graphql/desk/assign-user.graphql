@@ -1,0 +1,18 @@
+input AssignUserToDeskInput {
+  """
+  user id
+  """
+  user_id: ID!
+
+  """
+  desk id
+  """
+  desk_id: ID!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  assign an user to specific desk
+  """
+  assignUserToDesk(input: AssignUserToDeskInput! @spread): User!
+}

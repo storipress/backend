@@ -1,0 +1,60 @@
+input CreateDeskInput {
+  """
+  desk name
+  """
+  name: String!
+  @rules(apply: [
+    "required",
+    "max:255",
+  ])
+
+  """
+  desk description
+  """
+  description: String
+  @rules(apply: [
+    "nullable",
+    "string",
+  ])
+
+  """
+  seo meta data
+  """
+  seo: JSON
+
+  """
+  determinate desk is open_access or not
+  """
+  open_access: Boolean
+
+  """
+  parent desk id
+  """
+  desk_id: ID
+  @rules(apply: [
+    "bail",
+    "exists:desks,id,deleted_at,NULL",
+  ])
+
+  """
+  layout id
+  """
+  layout_id: ID
+  @rules(apply: [
+    "bail",
+    "exists:layouts,id,deleted_at,NULL",
+  ])
+}
+
+input DeskLayoutInput {
+  connect: ID
+  disconnect: ID
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create new desk
+  """
+  createDesk(input: CreateDeskInput! @spread): Desk!
+  @clearCacheQuery(group: "desk")
+}

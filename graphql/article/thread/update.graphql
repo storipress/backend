@@ -1,0 +1,16 @@
+input UpdateArticleThreadInput {
+  id: ID!
+
+  position: JSON!
+  @rules(apply: [
+    "required",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update article's thread
+  """
+  updateArticleThread(input: UpdateArticleThreadInput! @spread): ArticleThread!
+  @clearCacheQuery(group: "article")
+}

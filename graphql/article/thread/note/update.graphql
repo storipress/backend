@@ -1,0 +1,23 @@
+input UpdateNoteInput {
+  """
+  note id
+  """
+  id: ID!
+
+  """
+  note content
+  """
+  content: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update article thread note
+  """
+  updateNote(input: UpdateNoteInput! @spread): ArticleThreadNote!
+  @clearCacheQuery(group: "article")
+}

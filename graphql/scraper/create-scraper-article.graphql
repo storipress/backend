@@ -1,0 +1,29 @@
+input CreateScraperArticleInput {
+  """
+  scraper token
+  """
+  token: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+
+  """
+  articles' path
+  """
+  path: [String!]!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi {
+  """
+  create new article from scraper
+  """
+  createScraperArticle(
+    input: CreateScraperArticleInput! @spread
+  ): [ScraperArticle!]!
+  @clearCacheQuery(group: "scraper")
+}

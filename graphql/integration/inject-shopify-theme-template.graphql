@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  inject shopify theme template
+  """
+  injectShopifyThemeTemplate: Boolean!
+}

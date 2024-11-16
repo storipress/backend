@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  revoke a manually created subscription
+  """
+  revokeSubscriberSubscription(id: ID!): Boolean!
+}

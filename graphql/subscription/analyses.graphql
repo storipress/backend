@@ -1,0 +1,111 @@
+type SubscribersGraph {
+    """
+    total subscribers
+    """
+    subscribers: Int!
+
+    """
+    paid subscribers
+    """
+    paid_subscribers: Int!
+
+    """
+    date
+    """
+    date: Date!
+}
+
+type RevenueGraph {
+    """
+    revenue
+    """
+    revenue: String!
+
+    """
+    year of the data
+    """
+    year: Int!
+
+    """
+    month of the data
+    """
+    month: Int!
+
+    """
+    date
+    """
+    date: Date!
+}
+
+type SubscriptionGraphs {
+    """
+    subscribers by dates
+    """
+    subscribers: [SubscribersGraph!]!
+
+    """
+    revenue by dates
+    """
+    revenue: [RevenueGraph!]!
+}
+
+type SubscriptionAnalysis {
+    """
+    total subscribers number
+    """
+    subscribers: Int!
+
+    """
+    paid subscribers number
+    """
+    paid_subscribers: Int!
+
+    """
+    active subscribers number
+    """
+    active_subscribers: Int!
+
+    """
+    email sends number
+    """
+    email_sends: Int!
+
+    """
+    email opens number
+    """
+    email_opens: Int!
+
+    """
+    email clicks number
+    """
+    email_clicks: Int!
+
+    """
+    revenue
+    """
+    revenue: String!
+}
+
+type SubscriptionOverview {
+    """
+    current month information
+    """
+    current: SubscriptionAnalysis
+
+    """
+    previous month information
+    """
+    previous: SubscriptionAnalysis
+}
+
+extend type Query @tenantOnlyApi @guard {
+    """
+    publication subscription overview info
+    """
+    subscriptionOverview: SubscriptionOverview!
+
+    """
+    publication subscription subscribers and revenue info
+    """
+    subscriptionGraphs: SubscriptionGraphs!
+}

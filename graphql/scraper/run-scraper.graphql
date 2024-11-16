@@ -1,0 +1,24 @@
+input RunScraperInput {
+  """
+  scraper token
+  """
+  token: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+
+  """
+  scrape type
+  """
+  type: ScraperType!
+}
+
+extend type Mutation @tenantOnlyApi {
+  """
+  run existing scraper
+  """
+  runScraper(
+    input: RunScraperInput! @spread
+  ): Scraper!
+}

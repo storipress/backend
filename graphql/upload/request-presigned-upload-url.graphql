@@ -1,0 +1,30 @@
+type presignedUploadURL {
+  """
+  key(id)
+  """
+  key: ID!
+
+  """
+  upload endpoint
+  """
+  url: String!
+
+  """
+  url expires time
+  """
+  expire_on: DateTime!
+
+  """
+  signature of the request
+  """
+  signature: String!
+}
+
+extend type Mutation @guard {
+  """
+  request a presigned upload url for file upload
+  """
+  requestPresignedUploadURL(
+    md5: String
+  ): presignedUploadURL!
+}

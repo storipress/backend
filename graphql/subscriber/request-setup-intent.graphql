@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  request a SetupIntent,
+  reference: https://stripe.com/docs/api/setup_intents
+  """
+  requestSetupIntent: String!
+}

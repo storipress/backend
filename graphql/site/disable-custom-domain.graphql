@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  disable custom domain
+  """
+  disableCustomDomain: Site!
+  @clearCacheQuery(group: "publication")
+}

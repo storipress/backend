@@ -1,0 +1,11 @@
+type FacebookSearchPage {
+  id: ID!
+
+  name: String!
+}
+
+extend type Query @tenantOnlyApi @guard {
+  facebookPages(
+    keyword: String!
+  ): [FacebookSearchPage!]!
+}

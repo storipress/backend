@@ -1,0 +1,13 @@
+input UploadSiteTemplateInput {
+  """
+  presigned upload url key
+  """
+  key: ID!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  upload site template
+  """
+  uploadSiteTemplate(input: UploadSiteTemplateInput! @spread): [SiteTemplate!]!
+}

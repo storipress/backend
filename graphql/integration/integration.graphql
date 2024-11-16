@@ -1,0 +1,228 @@
+type FacebookPage {
+  """
+  facebook page id
+  """
+  page_id: String!
+
+  """
+  facebook page name
+  """
+  name: String!
+
+  """
+  facebook page thumbnail
+  """
+  thumbnail: String!
+}
+
+type FacebookConfiguration {
+  pages: [FacebookPage!]
+}
+
+type TwitterConfiguration {
+  """
+  twitter user id
+  """
+  user_id: String!
+
+  """
+  twitter user name
+  """
+  name: String!
+
+  """
+  twitter user thumbnail
+  """
+  thumbnail: String
+}
+
+type ShopifyConfiguration {
+  """
+  shopify store id
+  """
+  id: String!
+
+  """
+  shopify store name
+  """
+  name: String!
+
+  """
+  shopify store domain
+  """
+  domain: String
+
+  """
+  myshopify domain
+  """
+  myshopify_domain: String!
+
+  """
+  shopify app url prefix
+  """
+  prefix: String!
+}
+
+type LinkedInConfiguration {
+  """
+  linkedin user id
+  """
+  id: String!
+
+  """
+  linkedin page name
+  """
+  name: String!
+
+  """
+  linkedin email
+  """
+  email: String!
+
+  """
+  linkedin page thumbnail
+  """
+  thumbnail: String
+
+  """
+  linkedin authors
+  """
+  authors: [LinkedInAuthors!]!
+}
+
+type LinkedInAuthors {
+  """
+  linkedin author id
+  """
+  id: String!
+
+  """
+  linkedin author name
+  """
+  name: String!
+
+  """
+  linkedin author thumbnail
+  """
+  thumbnail: String
+}
+
+type SlackConfiguration {
+  """
+  slack channel id
+  """
+  id: String!
+
+  """
+  slack channel name
+  """
+  name: String!
+
+  """
+  slack channel thumbnail
+  """
+  thumbnail: String
+}
+
+type WebflowConfigurationCollectionItemMapping {
+  """
+  webflow collection item id
+  """
+  key: String!
+
+  """
+  storipress article field
+  """
+  value: String!
+}
+
+type WebflowConfigurationCollection {
+  """
+  webflow collection id
+  """
+  id: String!
+
+  """
+  webflow item mappings
+  """
+  mapping: [WebflowConfigurationCollectionItemMapping!]!
+  @rename(attribute: "mappings")
+}
+
+type WebflowConfiguration {
+  """
+  webflow user name
+  """
+  name: String!
+
+  """
+  webflow user email
+  """
+  email: EmailString!
+
+  """
+  webflow user id
+  """
+  user_id: String!
+
+  """
+  webflow api is v2 or not
+  """
+  v2: Boolean
+
+  """
+  webflow token is expired or not
+  """
+  expired: Boolean
+
+  """
+  webflow collections
+  """
+  collections: [WebflowConfigurationCollection!]!
+}
+
+type IntegrationIgnoreConfiguration {
+  """
+  integration key
+  """
+  key: String
+}
+
+union IntegrationConfiguration =
+  FacebookConfiguration |
+  TwitterConfiguration |
+  WebflowConfiguration |
+  SlackConfiguration |
+  ShopifyConfiguration |
+  LinkedInConfiguration |
+  IntegrationIgnoreConfiguration
+
+type Integration {
+  """
+  integration key
+  """
+  key: ID!
+
+  """
+  integration data
+  """
+  data: JSON!
+
+  """
+  integration read-only data
+  """
+  configuration: IntegrationConfiguration
+
+  """
+  determinate whether the integration is activated or not
+  """
+  activated_at: DateTime
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  fetch integrations
+  """
+  integrations: [Integration!]!
+  @all
+}

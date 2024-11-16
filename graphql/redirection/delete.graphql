@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  delete a redirection
+  """
+  deleteRedirection(id: ID!): Redirection!
+}

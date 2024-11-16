@@ -1,0 +1,6 @@
+extend type Mutation @guard {
+  """
+  remove account avatar
+  """
+  removeAvatar: User!
+}

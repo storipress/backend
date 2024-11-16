@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  Sync authors, desks and tags to Webflow site
+  """
+  syncContentToWebflow: Boolean!
+}

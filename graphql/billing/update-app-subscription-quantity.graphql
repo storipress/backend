@@ -1,0 +1,12 @@
+input UpdateAppSubscriptionQuantityInput {
+  quantity: Int!
+  @rules(apply: [
+    "required",
+    "integer",
+    "min:1",
+  ])
+}
+
+extend type Mutation @guard {
+  updateAppSubscriptionQuantity(input: UpdateAppSubscriptionQuantityInput @spread): Boolean!
+}

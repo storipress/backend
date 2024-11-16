@@ -1,0 +1,25 @@
+input UploadBlockPreviewInput {
+  """
+  block id
+  """
+  id: ID!
+
+  """
+  image file
+  """
+  file: Upload!
+  @rules(apply: [
+    "required",
+    "mimetypes:image/*",
+    "max:20480", # 20MB
+  ])
+}
+
+extend type Mutation @guard {
+  """
+  upload block preview image
+  """
+  uploadBlockPreview(input: UploadBlockPreviewInput! @spread): String!
+  @deprecated(reason: "use uploadImage instead")
+  @tenantOnlyApi
+}

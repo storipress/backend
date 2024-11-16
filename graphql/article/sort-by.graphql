@@ -1,0 +1,18 @@
+input SortArticleByInput {
+  """
+  stage id
+  """
+  stage_id: ID!
+
+  """
+  sort method(column and order)
+  """
+  sort_by: ArticleSortBy!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  move article order after target article id
+  """
+  sortArticleBy(input: SortArticleByInput! @spread): Boolean!
+}

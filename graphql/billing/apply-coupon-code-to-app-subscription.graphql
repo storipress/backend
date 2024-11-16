@@ -1,0 +1,11 @@
+input ApplyCouponCodeToAppSubscriptionInput {
+  promotion_code: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+}
+
+extend type Mutation @guard {
+  applyCouponCodeToAppSubscription(input: ApplyCouponCodeToAppSubscriptionInput @spread): Boolean!
+}

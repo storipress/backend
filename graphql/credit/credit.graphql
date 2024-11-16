@@ -1,0 +1,86 @@
+type Credit {
+  """
+  credit id
+  """
+  id: ID!
+
+  """
+  credit amount
+  """
+  amount: String!
+
+  """
+  credit state
+  """
+  state: CreditState!
+
+  """
+  credit earned source,
+  e.g. invitation
+  """
+  earned_from: String!
+
+  """
+  credit earned at
+  (the time that state was from draft to available)
+  """
+  earned_at: DateTime
+
+  """
+  credit used or not
+  """
+  used: Boolean!
+
+  """
+  credit used at
+  """
+  used_at: DateTime
+
+  """
+  credit remark
+  """
+  data: JSON
+
+  """
+  credit initialized at
+  """
+  initialized_at: DateTime!
+  @rename(attribute: "created_at")
+}
+
+type CreditsOverview {
+  """
+  type of credit,
+  e.g. invitation
+  """
+  type: String!
+
+  """
+  default credit amount of current type
+  """
+  amount: String!
+
+  """
+  available credit number
+  """
+  count: Int!
+
+  """
+  total amount
+  """
+  total: String!
+}
+
+extend type Query @guard {
+  """
+  fetch credits
+  """
+  credits(
+    state: CreditState = available @where
+  ): [Credit!]!
+  @paginate
+  @whereAuth(relation: "user", guard: "api")
+  @orderBy(column: "created_at", direction: DESC)
+
+  creditsOverview: [CreditsOverview!]!
+}

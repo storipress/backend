@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  check whether Stripe Connect is connected
+  """
+  checkStripeConnectConnected: Boolean!
+}

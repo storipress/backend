@@ -1,0 +1,95 @@
+type CustomFieldTextValue {
+  id: ID!
+
+  value: String
+}
+
+type CustomFieldNumberValue {
+  id: ID!
+
+  value: Float
+}
+
+type CustomFieldColorValue {
+  id: ID!
+
+  value: String
+}
+
+type CustomFieldUrlValue {
+  id: ID!
+
+  value: String
+}
+
+type CustomFieldBooleanValue {
+  id: ID!
+
+  value: Boolean
+}
+
+type CustomFieldSelectValue {
+  id: ID!
+
+  value: [String!]
+}
+
+type CustomFieldRichTextValue {
+  id: ID!
+
+  value: String
+}
+
+type CustomFieldFileValueAttributes {
+  key: ID!
+
+  url: String!
+
+  size: Int!
+
+  mime_type: String!
+}
+
+type CustomFieldFileValue {
+  id: ID!
+
+  value: CustomFieldFileValueAttributes
+}
+
+type CustomFieldDateValue {
+  id: ID!
+
+  value: DateTime
+}
+
+type CustomFieldJsonValue {
+  id: ID!
+
+  value: String
+}
+
+union CustomFieldReferenceTargetValue =
+  Article |
+  Desk |
+  Tag |
+  User |
+  WebflowReference
+
+type CustomFieldReferenceValue {
+  id: ID!
+
+  value: [CustomFieldReferenceTargetValue!]
+}
+
+union CustomFieldValue =
+  CustomFieldTextValue |
+  CustomFieldNumberValue |
+  CustomFieldColorValue |
+  CustomFieldUrlValue |
+  CustomFieldBooleanValue |
+  CustomFieldSelectValue |
+  CustomFieldRichTextValue |
+  CustomFieldFileValue |
+  CustomFieldDateValue |
+  CustomFieldJsonValue |
+  CustomFieldReferenceValue

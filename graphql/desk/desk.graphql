@@ -1,0 +1,98 @@
+type Desk {
+  """
+  desk id
+  """
+  id: ID!
+
+  """
+  desk string id
+  """
+  sid: ID!
+
+  """
+  desk name
+  """
+  name: String!
+
+  """
+  desk slug, use for structure url,
+  e.g. /desks/{slug}
+  """
+  slug: String!
+
+  """
+  desk description
+  """
+  description: String
+
+  """
+  seo meta data
+  """
+  seo: JSON
+
+  """
+  desk order
+  """
+  order: Int!
+
+  """
+  determinate desk is open_access or not
+  """
+  open_access: Boolean!
+
+  """
+  parent desk
+  """
+  desk: Desk @belongsTo
+
+  """
+  child desks
+  """
+  desks: [Desk!]! @hasMany @orderBy(column: "name")
+
+  """
+  desk layout
+  """
+  layout: Layout @belongsTo
+
+  """
+  custom fields for metafield
+  """
+  metafields: [CustomField!]!
+
+  """
+  articles number in this desk
+  """
+  articles_count: Int! @count(relation: "articles")
+
+  """
+  draft articles number in the desk(included sub-desks)
+  """
+  draft_articles_count: Int!
+
+  """
+  published articles number in the desk(included sub-desks)
+  """
+  published_articles_count: Int!
+
+  """
+  total articles number in the desk(included sub-desks)
+  """
+  total_articles_count: Int!
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  fetch desks
+  """
+  desks: [Desk!]!
+  @all(scopes: ["root"])
+  @orderBy(column: "name")
+
+  desk(
+    id: ID @eq
+    sid: ID @scope
+    slug: String @eq
+  ): Desk
+  @find
+}

@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi {
+  """
+  start scraper articles transfer
+  """
+  startScraperTransfer(token: String!): Boolean!
+}

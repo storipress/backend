@@ -1,0 +1,45 @@
+type Stage {
+  """
+  stage id
+  """
+  id: ID!
+
+  """
+  stage name
+  """
+  name: String!
+
+  """
+  color use on kanban header and scheduler dropdown
+  """
+  color: String!
+
+  """
+  icon show on kanban header
+  """
+  icon: String!
+
+  """
+  the order of stages
+  """
+  order: Int!
+
+  """
+  determinate this stage articles can move to DONE or not
+  """
+  ready: Boolean!
+
+  """
+  stage for new article and articles which stage was deleted
+  """
+  default: Boolean!
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  fetch stages
+  """
+  stages: [Stage!]!
+  @orderBy(column: "order", direction: ASC)
+  @all
+}

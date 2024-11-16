@@ -1,0 +1,25 @@
+input UploadArticleImageInput {
+  """
+  article id
+  """
+  id: ID!
+
+  """
+  image file
+  """
+  file: Upload!
+  @rules(apply: [
+    "required",
+    "mimetypes:image/*",
+    "max:20480", # 20MB
+  ])
+}
+
+extend type Mutation @guard {
+  """
+  upload an image to specific article
+  """
+  uploadArticleImage(input: UploadArticleImageInput! @spread): String!
+  @deprecated(reason: "use uploadImage instead")
+  @tenantOnlyApi
+}

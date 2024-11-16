@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  delete a desk
+  """
+  deleteDesk(id: ID!): Desk!
+  @clearCacheQuery(group: "desk")
+}

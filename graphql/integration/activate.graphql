@@ -1,0 +1,12 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  activate a specific integration
+  """
+  activateIntegration(
+    key: ID!
+    @rules(apply: [
+      "App\\Rules\\IntegrationKey",
+    ])
+  ): Integration!
+  @clearCacheQuery(group: "integration")
+}

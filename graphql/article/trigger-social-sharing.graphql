@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  manually trigger article social sharing
+  """
+  triggerArticleSocialSharing(id: ID!): Boolean!
+}

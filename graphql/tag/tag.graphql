@@ -1,0 +1,65 @@
+type Tag {
+  """
+  tag id
+  """
+  id: ID!
+
+  """
+  tag string id
+  """
+  sid: ID!
+
+  """
+  tag name
+  """
+  name: String!
+
+  """
+  tag slug, use for structure url,
+  e.g. /tags/{slug}
+  """
+  slug: String!
+
+  """
+  tag description
+  """
+  description: String
+
+  """
+  the number of articles which associate to this tag
+  """
+  count: Int!
+
+  """
+  custom fields for metafield
+  """
+  metafields: [CustomField!]!
+
+  """
+  articles which has current tag
+  """
+  articles: [Article!]!
+  @belongsToMany(
+    type: PAGINATOR
+    defaultCount: 50
+    maxCount: 50
+  )
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  fetch tags
+  """
+  tags: [Tag!]!
+  @all
+
+  """
+  get specific tag
+  """
+  tag(
+    id: ID @eq
+    sid: ID @scope
+    slug: String @eq
+  ): Tag
+  @find
+}

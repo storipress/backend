@@ -1,0 +1,24 @@
+input CreateTagInput {
+  """
+  tag name
+  """
+  name: String!
+  @rules(apply: [
+    "required",
+    "string",
+    "max:255",
+  ])
+
+  """
+  tag description
+  """
+  description: String
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create a new tag
+  """
+  createTag(input: CreateTagInput! @spread): Tag!
+  @clearCacheQuery(group: "tag")
+}

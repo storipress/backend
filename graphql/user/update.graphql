@@ -1,0 +1,106 @@
+input UpdateUserInput {
+  """
+  user id
+  """
+  id: ID!
+
+  """
+  account email
+  """
+  email: EmailString
+  @rules(apply: [
+    "email:rfc,strict,dns,spoof",
+  ])
+
+  """
+  user first name,
+  e.g. 大明
+  """
+  first_name: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+  ])
+
+  """
+  user last name,
+  e.g. 王
+  """
+  last_name: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+  ])
+
+  """
+  avatar url
+  """
+  avatar: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+  ])
+
+  """
+  phone number with national prefix,
+  e.g. +1
+  """
+  phone_number: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "phone:AUTO",
+  ])
+
+  """
+  gender
+  """
+  gender: UserGender
+
+  """
+  birthday
+  """
+  birthday: Date
+  @rules(apply: [
+    "nullable",
+    "date",
+  ])
+
+  """
+  location
+  """
+  location: String
+  @rules(apply: [
+    "nullable",
+    "string",
+  ])
+
+  """
+  description of personal profile
+  """
+  bio: String
+  @rules(apply: [
+    "nullable",
+    "string",
+  ])
+
+  """
+  personal website url
+  """
+  website: String
+  @rules(apply: [
+    "nullable",
+    "string",
+  ])
+}
+
+extend type Mutation @guard {
+  """
+  update an user profile
+  """
+  updateUser(input: UpdateUserInput! @spread): User!
+  @deprecated
+}

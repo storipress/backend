@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  resume an existing subscription
+  """
+  resumeSubscriberSubscription: Boolean!
+}

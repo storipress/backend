@@ -1,0 +1,4 @@
+extend type Mutation @tenantOnlyApi @guard {
+  makeStageDefault(id: ID!): Stage!
+  @deprecated(reason: "invalid api in manager v2")
+}

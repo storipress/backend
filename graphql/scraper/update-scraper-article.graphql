@@ -1,0 +1,47 @@
+input UpdateScraperArticleInput {
+  """
+  scraper token
+  """
+  token: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+
+  """
+  scraper article id
+  """
+  id: ID!
+
+  """
+  arbitrary data
+  """
+  data: JSON
+  @convertEmptyStringsToNull
+
+  """
+  is scraped successfully
+  """
+  successful: Boolean
+  @rules(apply: [
+    "boolean",
+  ])
+
+  """
+  article scraped_at
+  """
+  scraped_at: String
+  @rules(apply: [
+    "date",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi {
+  """
+  update scraper article
+  """
+  updateScraperArticle(
+    input: UpdateScraperArticleInput! @spread
+  ): ScraperArticle!
+  @clearCacheQuery(group: "scraper")
+}

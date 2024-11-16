@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  revoke an invitation
+  """
+  revokeInvitation(id: ID!): Invitation!
+  @clearCacheQuery(group: "invitation")
+}

@@ -1,0 +1,27 @@
+input ChangeRoleInput {
+  """
+  user id
+  """
+  id: ID!
+
+  """
+  role id
+  """
+  role_id: ID!
+  @rules(apply: [
+    "required",
+    "in:1,2,3,4,5",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  change user role
+  """
+  changeUserRole(input: ChangeRoleInput! @spread): User!
+
+  """
+  change user role for testing purpose
+  """
+  changeUserRoleForTesting(input: ChangeRoleInput! @spread): User!
+}

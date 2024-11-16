@@ -1,0 +1,34 @@
+type CustomFieldGroup {
+  id: ID!
+
+  key: ID!
+
+  type: CustomFieldGroupType!
+
+  name: String!
+
+  description: String
+
+  fields: [CustomField!]! @hasMany(relation: "customFields")
+
+  tags: [Tag!]!
+  @morphToMany
+  @deprecated(reason: "https://github.com/nuwave/lighthouse/issues/332")
+
+  desks: [Desk!]!
+  @morphToMany
+  @deprecated(reason: "https://github.com/nuwave/lighthouse/issues/332")
+}
+
+extend type Query @guard {
+  customFieldGroups: [CustomFieldGroup!]! @paginate(
+    defaultCount: 10
+    maxCount: 20
+  )
+
+  customFieldGroup(
+    id: ID @eq
+    key: ID @eq
+  ): CustomFieldGroup
+  @find
+}

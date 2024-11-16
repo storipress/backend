@@ -1,0 +1,23 @@
+input CreateNoteInput {
+  """
+  thread id
+  """
+  thread_id: ID!
+
+  """
+  note content
+  """
+  content: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  add note to article thread
+  """
+  createNote(input: CreateNoteInput! @spread): ArticleThreadNote!
+  @clearCacheQuery(group: "article")
+}

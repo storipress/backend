@@ -1,0 +1,12 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  disconnect specific integration
+  """
+  disconnectIntegration(
+    key: ID!
+    @rules(apply: [
+      "App\\Rules\\IntegrationKey",
+    ])
+  ): Integration!
+  @clearCacheQuery(group: "integration")
+}

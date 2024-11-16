@@ -1,0 +1,3 @@
+extend type Mutation @guard {
+  cancelAppSubscription: Boolean!
+}

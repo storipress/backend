@@ -1,0 +1,6 @@
+extend type Mutation @globalOnlyApi @guard {
+  """
+  delete account
+  """
+  deleteAccount(password: String!): Boolean!
+}

@@ -1,0 +1,140 @@
+type ScraperSelector {
+  """
+  selector id
+  """
+  id: ID!
+
+  """
+  selector type,
+  e.g. title, logo...
+  """
+  type: String!
+
+  """
+  selector value
+  """
+  value: String
+
+  """
+  selector data(additional arbitrary data)
+  """
+  data: JSON
+}
+
+type ScraperArticle {
+  """
+  article id
+  """
+  id: ID!
+
+  """
+  url path
+  """
+  path: String!
+
+  """
+  scraped article data
+  """
+  data: JSON
+
+  """
+  whether the article is scraped successfully or not
+  """
+  successful: Boolean!
+
+  """
+  whether the article is scraped or not
+  """
+  scraped: Boolean!
+
+  """
+  the article scraped time
+  """
+  scraped_at: DateTime
+}
+
+type Scraper {
+  """
+  scraper id
+  """
+  id: ID!
+
+  """
+  scraper state
+  """
+  state: ScraperState!
+
+  """
+  arbitrary data
+  """
+  data: JSON
+
+  """
+  total articles
+  """
+  total: Int!
+
+  """
+  successfully scraped articles
+  """
+  successful: Int!
+
+  """
+  scraping failed articles
+  """
+  failed: Int!
+
+  """
+  time that the scraper started
+  """
+  started_at: DateTime
+
+  """
+  time that the scraper finished,
+  will only have value on successful execution
+  """
+  finished_at: DateTime
+
+  """
+  time that the scraper cancelled,
+  will only have value on user cancelled
+  """
+  cancelled_at: DateTime
+
+  """
+  time that the scraper failed,
+  will only have value when something went wrong
+  """
+  failed_at: DateTime
+
+  """
+  scrapper selectors
+  """
+  selectors: [ScraperSelector!]!
+  @hasMany
+
+  """
+  scrapper articles
+  """
+  articles: [ScraperArticle!]!
+  @hasMany(type: PAGINATOR)
+}
+
+extend type Query @tenantOnlyApi {
+  """
+  fetch scrapers
+  """
+  scrapers: [Scraper!]!
+  @paginate
+  @guard
+
+  """
+  get specific scraper
+  """
+  scraper(token: String!): Scraper
+
+  """
+  list pending invite users
+  """
+  scraperPendingInviteUsers(token: String!): [String!]!
+}

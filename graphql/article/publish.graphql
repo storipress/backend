@@ -1,0 +1,40 @@
+input PublishArticleInput {
+  """
+  article id
+  """
+  id: ID!
+
+  """
+  publish time(ISO 8601 format)
+  """
+  time: String
+  @rules(apply: [
+    "date",
+  ])
+
+  """
+  set article published_at to
+  server current time
+  """
+  useServerCurrentTime: Boolean
+  @rules(apply: [
+    "boolean",
+  ])
+
+  """
+  set article stage to live(reviewed),
+  published_at will not be changed
+  """
+  now: Boolean
+  @rules(apply: [
+    "boolean",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  publish(schedule) an article
+  """
+  publishArticle(input: PublishArticleInput! @spread): Article!
+  @clearCacheQuery(group: "article")
+}

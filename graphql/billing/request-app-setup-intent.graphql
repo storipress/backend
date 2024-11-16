@@ -1,0 +1,10 @@
+input RequestAppSetupIntentInput {
+  payment: String
+}
+
+
+extend type Mutation @guard {
+  requestAppSetupIntent(
+    input: RequestAppSetupIntentInput @spread
+  ): String!
+}

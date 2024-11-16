@@ -1,0 +1,40 @@
+type Layout {
+  """
+  layout id
+  """
+  id: ID!
+
+  """
+  layout name
+  """
+  name: String!
+
+  """
+  template id
+  """
+  template: String!
+
+  """
+  layout data
+  """
+  data: JSON
+
+  """
+  layout preview image
+  """
+  preview: Image @morphOne
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  fetch layouts
+  """
+  layouts: [Layout!]!
+  @all
+
+  """
+  get specific layout
+  """
+  layout(id: ID! @eq): Layout
+  @find
+}

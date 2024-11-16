@@ -1,0 +1,214 @@
+type BillingDiscount {
+  """
+  discount name,
+  e.g. 10% off for 3 months
+  """
+  name: String!
+
+  """
+  discount amount,
+  e.g. 500
+  """
+  amount: String
+
+  """
+  fixed type of discount value,
+  e.g. 300 means $3.00
+  """
+  amount_off: String
+
+  """
+  percentage type of discount value,
+  e.g. 10.0 means 10%
+  """
+  percent_off: Float
+}
+
+type BillingTax {
+  """
+  the total tax that will be paid,
+  e.g. 1650
+  """
+  amount: String!
+
+  """
+  tax name,
+  e.g. GST
+  """
+  name: String!
+
+  """
+  the jurisdiction for the tax rate,
+  e.g. Australia
+  """
+  jurisdiction: String
+
+  """
+  the tax rate percent out of 100,
+  e.g. 10.0
+  """
+  percentage: Float
+}
+
+type Billing {
+  """
+  user id
+  """
+  id: ID!
+
+  """
+  user has a payment method or not
+  """
+  has_pm: Boolean!
+
+  """
+  card brand
+  """
+  pm_type: String
+
+  """
+  card last 4 number
+  """
+  pm_last_four: String
+
+  """
+  user has active subscription or not
+  """
+  subscribed: Boolean!
+
+  """
+  subscription source,
+  possible values: stripe, appsumo
+  """
+  source: String
+
+  """
+  subscription plan info:
+  - blogger(stripe)
+  - publisher(stripe)
+  - storipress_tier1(appsumo)
+  - storipress_tier2(appsumo)
+  - storipress_tier3(appsumo)
+  - storipress_bf_tier1(appsumo)
+  - storipress_bf_tier2(appsumo)
+  - storipress_bf_tier3(appsumo)
+  - storipress_bf_tier3(viededingue)
+  - storipress_bf_tier3(dealfuel)
+  - prophet
+  """
+  plan: String
+
+  """
+  subscription plan id
+  """
+  plan_id: String
+
+  """
+  possible values: prophet, viededingue, dealfuel, appsumo, stripe
+  """
+  referer: String
+
+  """
+  billing cycle,
+  possible values: monthly(stripe), yearly(stripe), lifetime(appsumo)
+  """
+  interval: String
+
+  """
+  subscription editor seats
+  """
+  quantity: Int
+
+  has_historical_subscriptions: Boolean!
+
+  has_prophet: Boolean!
+
+  """
+  next upcoming invoice time
+  """
+  next_pm_date: DateTime
+
+  """
+  next upcoming invoice total price(tax excluded)
+  """
+  next_pm_subtotal: String
+
+  """
+  next upcoming invoice discounts
+  """
+  next_pm_discounts: [BillingDiscount!]!
+
+  """
+  next upcoming invoice tax price
+  """
+  next_pm_tax: String
+
+  """
+  next upcoming invoice taxes details
+  """
+  next_pm_taxes: [BillingTax!]!
+
+  """
+  next upcoming invoice total price(tax included)
+  """
+  next_pm_total: String
+
+  """
+  discount(coupon) applies to current invoice
+  """
+  discount: String! @deprecated(reason: "use next_pm_discounts")
+
+  """
+  user's stripe account balance
+  """
+  account_balance: String! @deprecated
+
+  """
+  user's storipress credit balance
+  """
+  credit_balance: String!
+
+  """
+  user is during the trial period or not
+  """
+  on_trial: Boolean!
+
+  """
+  free trail ending time
+  """
+  trial_ends_at: DateTime
+
+  """
+  subscription is canceled or not
+  """
+  canceled: Boolean!
+
+  """
+  canceled subscription is still in grace period or not
+  """
+  on_grace_period: Boolean!
+
+  """
+  subscription ending time
+  """
+  ends_at: DateTime
+
+  """
+  user's publications quota
+  """
+  publications_quota: Int!
+
+  """
+  user's publications number
+  """
+  publications_count: Int!
+
+  """
+  in used editors number
+  """
+  seats_in_use: Int!
+}
+
+extend type Query @guard {
+  billing: Billing!
+}

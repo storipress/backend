@@ -1,0 +1,143 @@
+type User {
+  """
+  user id
+  """
+  id: ID!
+
+  """
+  intercom hash identity
+  """
+  intercom_hash_identity: String!
+
+  """
+  user email
+  """
+  email: EmailString
+
+  """
+  user email confirmed or not
+  """
+  verified: Boolean!
+
+  """
+  user status,
+  e.g. suspended, active
+  """
+  status: UserStatus
+
+  """
+  user is suspended or not
+  """
+  suspended: Boolean
+
+  """
+  user first name,
+  e.g. 大明
+  """
+  first_name: String
+
+  """
+  user last name,
+  e.g. 王
+  """
+  last_name: String
+
+  """
+  user full name
+  """
+  full_name: String
+
+  """
+  user slug, use for structure url
+  """
+  slug: String
+
+  """
+  avatar url
+  """
+  avatar: String
+
+  """
+  location
+  """
+  location: String
+
+  """
+  description of personal profile
+  """
+  bio: String
+
+  """
+  job title
+  """
+  job_title: String
+
+  """
+  public email
+  """
+  contact_email: EmailString
+
+  """
+  personal website url
+  """
+  website: String
+
+  """
+  social network links
+  """
+  socials: JSON
+
+  """
+  user signed up source information, e.g.
+  - direct
+  - appsumo
+  - invite:D6RX98VXN,D1NJYLKZN
+  """
+  signed_up_source: String
+
+  """
+  user last seen time
+  """
+  last_seen_at: DateTime
+
+  """
+  user create(join) time
+  """
+  created_at: DateTime!
+
+  updated_at: DateTime!
+
+  """
+  arbitrary data field
+  """
+  meta: JSON
+
+  """
+  user's role
+  """
+  role: String
+
+  """
+  desks joined by the user
+  """
+  desks: [Desk!]! @belongsToMany @tenantOnlyField
+}
+
+extend type Query @guard {
+  """
+  fetch users
+  """
+  users(
+    includeInvitations: Boolean = false @deprecated
+  ): [User!]!
+  @tenantOnlyApi
+
+  """
+  get specific user data
+  """
+  user(
+    id: ID
+    slug: String
+  ): User
+  @tenantOnlyApi
+}

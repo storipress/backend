@@ -1,0 +1,28 @@
+input CreateInvitationInput @validator {
+  # all fields' validation rules are in
+  # CreateInvitationInputValidator class
+
+  """
+  email
+  """
+  email: EmailString!
+
+  """
+  role id
+  """
+  role_id: ID!
+
+  """
+  desk id
+  """
+  desk_id: [ID!]!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create an invitation
+  """
+  createInvitation(input: CreateInvitationInput! @spread): Boolean!
+  @clearCacheQuery(group: "invitation")
+  @clearCacheQuery(group: "user")
+}

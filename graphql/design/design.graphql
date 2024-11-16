@@ -1,0 +1,35 @@
+type Design {
+  """
+  design key
+  """
+  key: ID!
+
+  """
+  draft content
+  """
+  draft: JSON
+
+  """
+  live content
+  """
+  current: JSON
+
+  """
+  seo meta data
+  """
+  seo: JSON
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  fetch designs
+  """
+  designs: [Design!]!
+  @all
+
+  """
+  get specific design
+  """
+  design(key: ID! @eq): Design
+  @find
+}

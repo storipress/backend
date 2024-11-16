@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create a new subscription for the subscriber,
+  the price_id can be found on siteSubscriptionInfo query
+  """
+  createSubscriberSubscription(price_id: String!): Boolean!
+}

@@ -1,0 +1,29 @@
+input ImportSiteContentFromWordPressInput {
+  """
+  file exported from storipress wordpress plugin
+  """
+  file: Upload
+  @rules(apply: [
+    "required",
+    "file",
+    "max:512000",
+  ])
+  @deprecated(reason: "use key and signature")
+
+  """
+  presigned upload url key
+  """
+  key: ID
+
+  """
+  signature of the request
+  """
+  signature: String
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  import content from wordpress
+  """
+  importSiteContentFromWordPress(input: ImportSiteContentFromWordPressInput! @spread): Boolean!
+}

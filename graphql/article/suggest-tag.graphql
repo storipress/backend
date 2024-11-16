@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  get suggested article tags
+  """
+  suggestedArticleTag(id: ID!): [String!]!
+}

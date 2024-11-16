@@ -1,0 +1,32 @@
+input CreateLayoutInput {
+  """
+  layout name
+  """
+  name: String!
+  @rules(apply: [
+    "required",
+    "max:255",
+  ])
+
+  """
+  template id
+  """
+  template: String!
+  @rules(apply: [
+    "required",
+    "max:255",
+  ])
+
+  """
+  layout data
+  """
+  data: JSON
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create a new layout
+  """
+  createLayout(input: CreateLayoutInput! @spread): Layout!
+  @clearCacheQuery(group: "layout")
+}

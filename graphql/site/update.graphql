@@ -1,0 +1,150 @@
+input UpdateSiteInput @validator {
+  """
+  publication storipress domain prefix,
+  e.g. {workspace}.storipress.app
+  """
+  workspace: String
+
+  """
+  publication name
+  """
+  name: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+  ])
+
+  """
+  publication description
+  """
+  description: String
+  @rules(apply: [
+    "nullable",
+    "string",
+  ])
+
+  """
+  publication email
+  """
+  email: String
+  @rules(apply: [
+    "nullable",
+    "email",
+  ])
+
+  """
+  publication timezone
+  """
+  timezone: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "timezone",
+  ])
+
+  """
+  RFC 5646 Language Tags
+  """
+  lang: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+  ])
+
+  """
+  publication favicon, base64 type
+  """
+  favicon: String
+  @rules(apply: [
+    "nullable",
+    "string",
+  ])
+
+  """
+  publication tutorial history
+  """
+  tutorials: JSON
+  @rules(apply: [
+    "nullable",
+  ])
+
+  """
+  social network links
+  """
+  socials: JSON
+  @rules(apply: [
+    "nullable",
+  ])
+
+  """
+  static site url structures
+  """
+  permalinks: JSON
+  @rules(apply: [
+    "nullable",
+  ])
+
+  """
+  customized sitemap
+  """
+  sitemap: JSON
+  @rules(apply: [
+    "nullable",
+  ])
+
+  """
+  main hosting site
+  """
+  hosting: SiteHosting
+  @rules(apply: [
+    "nullable",
+  ])
+
+  """
+  built-in desks' names alias
+  """
+  desk_alias: JSON
+  @rules(apply: [
+    "nullable",
+  ])
+
+  """
+  generator configurations
+  """
+  buildx: JSON
+  @rules(apply: [
+    "nullable",
+  ])
+
+  """
+  leaky paywall configurations
+  """
+  paywall_config: JSON
+  @rules(apply: [
+    "nullable",
+  ])
+
+
+  """
+  prophet configurations
+  """
+  prophet_config: JSON
+  @rules(apply: [
+    "nullable",
+  ])
+
+  """
+  enable / disable custom site template
+  """
+  custom_site_template: Boolean
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update publication data
+  """
+  updateSiteInfo(input: UpdateSiteInput! @spread): Site!
+  @clearCacheQuery(group: "publication")
+}

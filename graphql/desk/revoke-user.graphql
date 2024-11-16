@@ -1,0 +1,18 @@
+input RevokeUserFromDeskInput {
+  """
+  user id
+  """
+  user_id: ID!
+
+  """
+  desk id
+  """
+  desk_id: ID!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  remove user from desk
+  """
+  revokeUserFromDesk(input: RevokeUserFromDeskInput! @spread): User!
+}

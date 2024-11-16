@@ -1,0 +1,21 @@
+input SwapAppSubscriptionInput {
+  price_id: String!
+  @rules(apply: [
+    "required",
+  ])
+
+  quantity: Int = 1
+  @rules(apply: [
+    "integer",
+    "min:1",
+  ])
+
+  promotion_code: String
+  @rules(apply: [
+    "string",
+  ])
+}
+
+extend type Mutation @guard {
+  swapAppSubscription(input: SwapAppSubscriptionInput @spread): Boolean!
+}

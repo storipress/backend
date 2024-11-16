@@ -1,0 +1,18 @@
+input DeleteSlackChannelsInput {
+  """
+  notify condition
+  """
+  key: ID!
+
+  """
+  notify channels
+  """
+  channels: [String!]!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  Remove a channel from Slack notifications
+  """
+  deleteSlackChannels(input: DeleteSlackChannelsInput! @spread): Integration!
+}

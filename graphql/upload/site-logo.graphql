@@ -1,0 +1,14 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  upload site logo
+  """
+  uploadSiteLogo(
+    file: Upload!
+    @rules(apply: [
+      "required",
+      "mimetypes:image/*",
+      "max:20480", # 20MB
+    ])
+  ): String!
+  @deprecated(reason: "use uploadImage instead")
+}

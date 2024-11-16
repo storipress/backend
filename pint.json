@@ -1,0 +1,7 @@
+{
+  "notPath": [
+    "_ide_helper_models.php",
+    "temp.php"
+  ],
+  "preset": "laravel"
+}

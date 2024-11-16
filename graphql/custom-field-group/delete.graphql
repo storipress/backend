@@ -1,0 +1,7 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  delete a custom field group
+  """
+  deleteCustomFieldGroup(id: ID!): CustomFieldGroup!
+  @clearCacheQuery(group: "custom-field-group")
+}

@@ -1,0 +1,26 @@
+"""
+remove tag from article form
+"""
+input RemoveTagFromArticleInput {
+  """
+  article id
+  """
+  id: ID!
+
+  """
+  tag id
+  """
+  tag_id: ID!
+  @rules(apply: [
+    "required",
+    "exists:tags,id",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  remove tag from article
+  """
+  removeTagFromArticle(input: RemoveTagFromArticleInput! @spread): Article!
+  @clearCacheQuery(group: "article")
+}

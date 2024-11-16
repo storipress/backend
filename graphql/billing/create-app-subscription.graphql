@@ -1,0 +1,21 @@
+input CreateAppSubscriptionInput {
+  price_id: String!
+  @rules(apply: [
+    "required",
+  ])
+
+  quantity: Int = 1
+  @rules(apply: [
+    "integer",
+    "min:1",
+  ])
+
+  promotion_code: String
+  @rules(apply: [
+    "string",
+  ])
+}
+
+extend type Mutation @guard {
+  createAppSubscription(input: CreateAppSubscriptionInput @spread): Boolean!
+}

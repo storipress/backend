@@ -1,0 +1,33 @@
+input UpdateCustomFieldGroupInput @validator {
+  """
+  custom field group id
+  """
+  id: ID!
+
+  """
+  custom field group key
+  """
+  key: String
+  # this field is validated by validator
+
+  """
+  custom field group name
+  """
+  name: String
+  @rules(apply: [
+    "max:200",
+  ])
+
+  description: String @convertEmptyStringsToNull
+  @rules(apply: [
+    "max:2000",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an existing custom field group
+  """
+  updateCustomFieldGroup(input: UpdateCustomFieldGroupInput! @spread): CustomFieldGroup!
+  @clearCacheQuery(group: "custom-field-group")
+}

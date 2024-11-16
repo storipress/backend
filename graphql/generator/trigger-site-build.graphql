@@ -1,0 +1,19 @@
+input TriggerSiteBuildInput {
+  """
+  trigger id, e.g. article id
+  """
+  id: ID!
+
+  """
+  trigger type
+  """
+  type: ReleaseType!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  trigger a site build
+  """
+  triggerSiteBuild(input: TriggerSiteBuildInput @spread): ID
+  @clearCacheQuery(group: "release")
+}

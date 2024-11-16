@@ -1,0 +1,65 @@
+type WordPressFeature {
+  """
+  the activation of WordPress site synchronization
+  """
+  site: Boolean!
+
+  """
+  the activation of WordPress yoast seo plugin synchronization
+  """
+  yoast_seo: Boolean!
+
+  """
+  the activation of WordPress acf plugin synchronization
+  """
+  acf: Boolean!
+}
+
+type WordPressInfo {
+  """
+  configured WordPress username
+  """
+  username: String
+
+  """
+  configured WordPress site name
+  """
+  site_name: String
+
+  """
+  configured WordPress site url
+  """
+  url: String
+
+  """
+  configured WordPress Plugin version
+  """
+  version: String
+
+  """
+  whether the integration is activated or not
+  """
+  activated_at: DateTime
+
+  """
+  whether the integration token is expired or not
+  """
+  expired: Boolean
+
+  """
+  the features of WordPress synchronization
+  """
+  feature: WordPressFeature
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  whether the WordPress connection has been completed or not
+  """
+  wordPressAuthorized: Boolean!
+
+  """
+  get WordPress information
+  """
+  wordPressInfo: WordPressInfo!
+}

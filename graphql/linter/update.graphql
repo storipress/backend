@@ -1,0 +1,45 @@
+input UpdateLinterInput {
+  """
+  linter id
+  """
+  id: ID!
+
+  """
+  linter title
+  """
+  title: String
+  @rules(apply: [
+    "sometimes",
+    "string",
+    "max:200",
+  ])
+
+  """
+  linter description
+  """
+  description: String
+  @rules(apply: [
+    "sometimes",
+    "string",
+    "max:200",
+  ])
+
+  """
+  linter prompt
+  """
+  prompt: String
+  @rules(apply: [
+    "sometimes",
+    "string",
+    "max:200",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an existing linter
+  """
+  updateLinter(
+    input: UpdateLinterInput! @spread
+  ): Linter!
+}

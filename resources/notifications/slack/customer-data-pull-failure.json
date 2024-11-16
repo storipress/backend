@@ -1,0 +1,9 @@
+[
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "Publication {tenant} just had a customer data pull failure (<{sentry_url}|*sentry*>)"
+    }
+  }
+]

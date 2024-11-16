@@ -1,0 +1,9 @@
+type SubscriberPainPoint {
+  weight: Int!
+
+  value: String!
+}
+
+extend type Query @tenantOnlyApi @guard {
+    subscriberPainPoints(id: ID!): [SubscriberPainPoint!]!
+}

@@ -1,0 +1,41 @@
+type LiveUpdate {
+  article_created: Article
+  article_updated: Article
+  article_deleted: Article
+  article_thread_created: ArticleThread
+  article_thread_updated: ArticleThread
+  article_thread_resolved: ArticleThread
+  article_thread_note_created: ArticleThreadNote
+  article_thread_note_updated: ArticleThreadNote
+  article_thread_note_deleted: ArticleThreadNote
+  design_updated: Design
+  desk_created: Desk
+  desk_updated: Desk
+  desk_deleted: Desk
+  integration_updated: Integration
+  invitation_created: Invitation
+  invitation_updated: Invitation
+  invitation_deleted: Invitation
+  layout_created: Layout
+  layout_updated: Layout
+  layout_deleted: Layout
+  page_created: Page
+  page_updated: Page
+  page_deleted: Page
+  release_created: Release
+  release_updated: Release
+  site_updated: Site
+  stage_created: Stage
+  stage_updated: Stage
+  stage_deleted: Stage
+  tag_created: Tag
+  tag_updated: Tag
+  tag_deleted: Tag
+  user_created: User
+  user_updated: User
+  user_deleted: User
+}
+
+extend type Subscription {
+  LiveUpdate: LiveUpdate
+}

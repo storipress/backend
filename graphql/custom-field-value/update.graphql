@@ -1,0 +1,22 @@
+input UpdateCustomFieldValueInput {
+  """
+  custom field value id
+  """
+  id: ID!
+
+  """
+  custom field value
+  """
+  value: Mixed
+  @rules(apply: [
+    "present",
+    "nullable",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an existing custom field value
+  """
+  updateCustomFieldValue(input: UpdateCustomFieldValueInput! @spread): CustomFieldValue!
+}

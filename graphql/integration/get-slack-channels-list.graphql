@@ -1,0 +1,23 @@
+type SlackChannel {
+  """
+  channel id
+  """
+  id: ID!
+
+  """
+  channel name
+  """
+  name: String!
+
+  """
+  channel is private or not
+  """
+  is_private: Boolean!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  get slack channels list
+  """
+  getSlackChannelsList: [SlackChannel!]!
+}

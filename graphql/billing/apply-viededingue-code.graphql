@@ -1,0 +1,13 @@
+input ApplyViededingueCodeInput {
+  code: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+}
+
+extend type Mutation @guard {
+  applyViededingueCode(
+    input: ApplyViededingueCodeInput @spread
+  ): Boolean!
+}

@@ -1,0 +1,56 @@
+input UpdatePageInput {
+  """
+  page id
+  """
+  id: ID!
+
+  """
+  page title,
+  e.g. About Us
+  """
+  title: String
+  @rules(apply: [
+    "sometimes",
+    "required",
+    "string",
+    "max:255",
+  ])
+
+  """
+  draft content
+  """
+  draft: JSON
+
+  """
+  live content
+  """
+  current: JSON
+
+  """
+  seo meta data
+  """
+  seo: JSON
+
+  """
+  page order
+  """
+  order: Int
+
+  """
+  layout id
+  """
+  layout_id: ID
+  @rules(apply: [
+    "bail",
+    "nullable",
+    "exists:layouts,id,deleted_at,NULL",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  update an existing page data
+  """
+  updatePage(input: UpdatePageInput! @spread): Page!
+  @clearCacheQuery(group: "page")
+}

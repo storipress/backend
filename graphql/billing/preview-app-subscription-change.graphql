@@ -1,0 +1,35 @@
+input PreviewAppSubscriptionInput {
+  price_id: String!
+  @rules(apply: [
+    "required",
+  ])
+
+  quantity: Int = 1
+  @rules(apply: [
+    "integer",
+    "min:1",
+  ])
+
+  promotion_code: String
+  @rules(apply: [
+    "string",
+  ])
+}
+
+type PreviewAppSubscriptionType {
+  credit: String!
+
+  discount: String!
+
+  subtotal: String!
+
+  tax: String!
+
+  total: String!
+}
+
+extend type Mutation @guard {
+  previewAppSubscription(
+    input: PreviewAppSubscriptionInput! @spread
+  ): PreviewAppSubscriptionType!
+}

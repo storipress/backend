@@ -1,0 +1,26 @@
+"""
+remove author from article form
+"""
+input RemoveAuthorFromArticleInput {
+  """
+  article id
+  """
+  id: ID!
+
+  """
+  user id(author id)
+  """
+  user_id: ID!
+  @rules(apply: [
+    "required",
+    "exists:users,id",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  remove author from article
+  """
+  removeAuthorFromArticle(input: RemoveAuthorFromArticleInput! @spread): Article!
+  @clearCacheQuery(group: "article")
+}

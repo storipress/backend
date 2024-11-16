@@ -1,0 +1,26 @@
+"""
+email confirm form
+"""
+input ConfirmEmailInput {
+  """
+  email field
+  """
+  email: EmailString!
+
+  """
+  link expired time field
+  """
+  expire_on: Int!
+
+  """
+  hmac for inputs
+  """
+  signature: String!
+}
+
+extend type Mutation @guard {
+  """
+  confirm account email
+  """
+  confirmEmail(input: ConfirmEmailInput! @spread): Boolean!
+}

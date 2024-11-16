@@ -1,0 +1,25 @@
+input UploadLayoutPreviewInput {
+  """
+  layout id
+  """
+  id: ID!
+
+  """
+  image file
+  """
+  file: Upload!
+  @rules(apply: [
+    "required",
+    "mimetypes:image/*",
+    "max:20480", # 20MB
+  ])
+}
+
+extend type Mutation @guard {
+  """
+  upload layout preview image
+  """
+  uploadLayoutPreview(input: UploadLayoutPreviewInput! @spread): String!
+  @deprecated(reason: "use uploadImage instead")
+  @tenantOnlyApi
+}

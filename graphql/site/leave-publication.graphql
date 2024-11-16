@@ -1,0 +1,6 @@
+extend type Mutation @guard {
+  """
+  user leave current request publication
+  """
+  leavePublication(id: ID!): Boolean!
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "{shop_email} just sent shopify data requests"
+    }
+  },
+  {
+    "type": "section",
+    "fields": [
+      {
+        "type": "mrkdwn",
+        "text": "*Shop:*\n <{shop_url}|View Shop>"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*Subscriber:*\n {subscriber_email}"
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "fields": [
+      {
+        "type": "mrkdwn",
+        "text": "*Environment:*\n {env}"
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "*Download Url:*\n <{base_info_url}|Base Info> \n <{activities_url}|Activities>"
+    }
+  }
+]

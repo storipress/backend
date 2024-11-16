@@ -1,0 +1,35 @@
+input CreateCustomFieldValueInput {
+  """
+  custom field id
+  """
+  id: ID!
+  @rules(apply: [
+    "bail",
+    "required",
+    "exists:custom_fields,id,deleted_at,NULL",
+  ])
+
+  """
+  target id
+  """
+  target_id: ID!
+  @rules(apply: [
+    "required",
+  ])
+
+  """
+  custom field value
+  """
+  value: Mixed
+  @rules(apply: [
+    "present",
+    "nullable",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create new custom field value
+  """
+  createCustomFieldValue(input: CreateCustomFieldValueInput! @spread): CustomFieldValue!
+}

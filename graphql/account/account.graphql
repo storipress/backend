@@ -1,0 +1,118 @@
+"""
+subset of site(publication)
+"""
+type Publication {
+  """
+  publication id
+  """
+  id: ID!
+
+  """
+  publication name
+  """
+  name: String!
+
+  """
+  publication description
+  """
+  description: String
+
+  """
+  publication favicon
+  """
+  favicon: String
+
+  """
+  publication storipress domain prefix,
+  e.g. {workspace}.storipress.app
+  """
+  workspace: String!
+
+  """
+  publication custom domain
+  """
+  custom_domain: String
+
+  """
+  publication customer site domain
+  e.g. hello.storipress.app, example.com
+  """
+  customer_site_domain: String!
+  @rename(attribute: "url")
+}
+
+"""
+subset of site(publication)
+"""
+type Workspace {
+  """
+  publication id
+  """
+  id: ID!
+
+  """
+  publication name
+  """
+  name: String!
+
+  """
+  publication description
+  """
+  description: String
+
+  """
+  publication favicon
+  """
+  favicon: String
+
+  """
+  publication storipress domain prefix,
+  e.g. {workspace}.storipress.app
+  """
+  workspace: String!
+
+  """
+  publication custom domain
+  """
+  custom_domain: String
+
+  """
+  publication customer site domain
+  e.g. hello.storipress.app, example.com
+  """
+  customer_site_domain: String!
+  @rename(attribute: "url")
+
+  """
+  user's role
+  """
+  role: String!
+
+  """
+  user status,
+  e.g. suspended, active
+  """
+  status: UserStatus!
+
+  """
+  hidden or not
+  """
+  hidden: Boolean!
+}
+
+extend type Query @guard {
+  """
+  account profile
+  """
+  me: User!
+
+  """
+  all publications joined by the account
+  """
+  workspaces: [Workspace!]!
+
+  """
+  all publications owned by the account
+  """
+  publications: [Publication!]!
+}

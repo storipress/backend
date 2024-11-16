@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  pull latest collections from Webflow
+  """
+  pullWebflowCollections(refresh: Boolean! = false): [WebflowCollection!]!
+}

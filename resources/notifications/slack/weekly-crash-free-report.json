@@ -1,0 +1,31 @@
+[
+  {
+    "type": "header",
+    "text": {
+      "type": "plain_text",
+      "text": "🌟 USER EXPERIENCE ALERT 🌟 {env} for {date}",
+      "emoji": true
+    }
+  },
+  {
+    "type": "section",
+    "fields": [
+      {
+        "type": "mrkdwn",
+        "text": "Crash Free Sessions: {session_percentage}%"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*{session_diff_emoji} {session_diff}% last week*"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "Crash Free Users: {user_percentage}%"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*{user_diff_emoji} {user_diff}% last week*"
+      }
+    ]
+  }
+]

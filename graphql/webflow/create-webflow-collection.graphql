@@ -1,0 +1,13 @@
+input CreateWebflowCollectionInput {
+  """
+  collection Type
+  """
+  type: WebflowCollectionType!
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create webflow collection
+  """
+  createWebflowCollection(input: CreateWebflowCollectionInput! @spread): Boolean!
+}

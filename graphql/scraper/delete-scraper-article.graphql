@@ -1,0 +1,25 @@
+input DeleteScraperArticleInput {
+  """
+  scraper token
+  """
+  token: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+
+  """
+  scraper article id
+  """
+  id: ID!
+}
+
+extend type Mutation @tenantOnlyApi {
+  """
+  delete scraper article
+  """
+  deleteScraperArticle(
+    input: DeleteScraperArticleInput! @spread
+  ): ScraperArticle!
+  @clearCacheQuery(group: "scraper")
+}

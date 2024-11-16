@@ -1,0 +1,43 @@
+input CreatePageInput {
+  """
+  page title,
+  e.g. About Us
+  """
+  title: String!
+  @rules(apply: [
+    "required",
+    "max:255",
+  ])
+
+  """
+  draft content
+  """
+  draft: JSON
+
+  """
+  live content
+  """
+  current: JSON
+
+  """
+  seo meta data
+  """
+  seo: JSON
+
+  """
+  layout id
+  """
+  layout_id: ID
+  @rules(apply: [
+    "bail",
+    "exists:layouts,id,deleted_at,NULL",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  create a new page
+  """
+  createPage(input: CreatePageInput! @spread): Page!
+  @clearCacheQuery(group: "page")
+}

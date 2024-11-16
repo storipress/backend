@@ -1,0 +1,267 @@
+type WebflowReference {
+  """
+  Webflow item id
+  """
+  id: ID!
+}
+
+type WebflowItem {
+  """
+  Webflow item id
+  """
+  id: ID!
+
+  """
+  item name
+  """
+  name: String!
+
+  """
+  item slug
+  """
+  slug: String!
+}
+
+type WebflowCollectionFieldCandidate {
+  """
+  text displayed to the user
+  """
+  name: String!
+
+  """
+  value required for the API call
+  """
+  value: String!
+}
+
+type WebflowCollectionField {
+  """
+  Webflow collection field id
+  """
+  id: ID!
+
+  """
+  text displayed to the user
+  """
+  displayName: String!
+
+  """
+  help text displayed to the user
+  """
+  helpText: String
+
+  """
+  whether the collection field is required or not
+  """
+  isRequired: Boolean!
+
+  """
+  the collection field type
+  """
+  type: WebflowFieldType!
+
+  """
+  potential field list corresponding to Storipress
+  """
+  candidates: [WebflowCollectionFieldCandidate!]
+}
+
+type WebflowCollection {
+  """
+  Webflow collection id
+  """
+  id: ID!
+
+  """
+  text displayed to the user
+  """
+  displayName: String!
+
+  """
+  collection fields
+  """
+  fields: [WebflowCollectionField!]!
+
+  """
+  key(webflow-field-id) value(candidate-value, nullable) object,
+  e.g. {"19bf7":null,"210c9":"editors"}
+  """
+  mappings: JSON
+}
+
+type WebflowCustomDomain {
+  id: ID!
+
+  url: String!
+}
+
+type WebflowSite {
+  """
+  Webflow site id
+  """
+  id: ID!
+
+  """
+  site custom domains
+  """
+  customDomains: [WebflowCustomDomain!]!
+
+  """
+  site webflow domain, e.g. hello.webflow.io
+  """
+  defaultDomain: String!
+
+  """
+  text displayed to the user
+  """
+  displayName: String!
+}
+
+type WebflowDetectionMappingOnboarding {
+  """
+  whether the blog collection's fields mapping detection is ongoing or not
+  """
+  blog: Boolean!
+
+  """
+  whether the author collection's fields mapping detection is ongoing or not
+  """
+  author: Boolean!
+
+  """
+  whether the desk collection's fields mapping detection is ongoing or not
+  """
+  desk: Boolean!
+
+  """
+  whether the tag collection's fields mapping detection is ongoing or not
+  """
+  tag: Boolean!
+}
+
+type WebflowDetectionOnboarding {
+  """
+  whether the site detection is ongoing or not
+  """
+  site: Boolean!
+
+  """
+  whether the site collection is ongoing or not
+  """
+  collection: Boolean!
+
+  mapping: WebflowDetectionMappingOnboarding!
+}
+
+type WebflowCollectionOnboarding {
+  """
+  whether the blog collection is selected or not
+  """
+  blog: Boolean!
+
+  """
+  whether the author collection is selected or not
+  """
+  author: Boolean!
+
+  """
+  whether the desk collection is selected or not
+  """
+  desk: Boolean!
+
+  """
+  whether the tag collection is selected or not
+  """
+  tag: Boolean!
+}
+
+type WebflowMappingOnboarding {
+  """
+  whether the blog collection's fields mapping is completed or not
+  """
+  blog: Boolean!
+
+  """
+  whether the author collection's fields mapping is completed or not
+  """
+  author: Boolean!
+
+  """
+  whether the desk collection's fields mapping is completed or not
+  """
+  desk: Boolean!
+
+  """
+  whether the tag collection's fields mapping is completed or not
+  """
+  tag: Boolean!
+}
+
+type WebflowOnboarding {
+  """
+  whether the site is selected or not
+  """
+  site: Boolean!
+
+  detection: WebflowDetectionOnboarding!
+
+  collection: WebflowCollectionOnboarding!
+
+  mapping: WebflowMappingOnboarding!
+}
+
+type WebflowInfo {
+  """
+  configured Webflow site id
+  """
+  site_id: ID
+
+  """
+  configured Webflow site domain
+  """
+  domain: String
+
+  """
+  whether the integration is activated or not
+  """
+  activated_at: DateTime
+}
+
+extend type Query @tenantOnlyApi @guard {
+  """
+  whether the Webflow OAuth has been completed or not
+  """
+  webflowAuthorized: Boolean!
+
+  """
+  get Webflow information
+  """
+  webflowInfo: WebflowInfo!
+
+  """
+  get Webflow onboarding status
+  """
+  webflowOnboarding: WebflowOnboarding!
+
+  """
+  get all Webflow sites
+  """
+  webflowSites: [WebflowSite!]!
+
+  """
+  get all Webflow collections
+  """
+  webflowCollections: [WebflowCollection!]!
+
+  """
+  get Webflow collection information
+  """
+  webflowCollection(type: WebflowCollectionType!): WebflowCollection
+
+  """
+  get all Webflow items for specific collection
+  """
+  webflowItems(
+    collection_id: ID!
+  ): [WebflowItem!]!
+}

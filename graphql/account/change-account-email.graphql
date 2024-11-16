@@ -1,0 +1,32 @@
+"""
+email update form
+"""
+input ChangeAccountEmailInput {
+  """
+  current password field
+  """
+  password: String!
+  @rules(apply: [
+    "required",
+    "string",
+  ])
+
+  """
+  new account email field
+  """
+  email: EmailString!
+  @rules(apply: [
+    "bail",
+    "required",
+    "email:rfc,strict,dns,spoof",
+    "unique:App\\Models\\User,email",
+  ])
+}
+
+extend type Mutation @guard {
+  """
+  update account email
+  """
+  changeAccountEmail(input: ChangeAccountEmailInput! @spread): User!
+  @rateLimiting(name: "user-change-account-email")
+}

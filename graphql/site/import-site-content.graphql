@@ -1,0 +1,13 @@
+input ImportSiteContentInput {
+  file: Upload!
+  @rules(apply: [
+    "required",
+    "file",
+    "max:5120",
+  ])
+}
+
+extend type Mutation @tenantOnlyApi @guard {
+  importSiteContent(input: ImportSiteContentInput! @spread): Boolean!
+  @deprecated(reason: "not works as expected")
+}

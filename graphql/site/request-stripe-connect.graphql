@@ -1,0 +1,6 @@
+extend type Mutation @tenantOnlyApi @guard {
+  """
+  start a stripe connect
+  """
+  requestStripeConnect: String!
+}

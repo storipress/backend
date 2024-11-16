@@ -1,0 +1,6 @@
+extend type Mutation {
+  """
+  sign in to the app
+  """
+  signIn(email: EmailString!, password: String!): AuthToken! @rateLimiting(name: "user-sign-in")
+}
